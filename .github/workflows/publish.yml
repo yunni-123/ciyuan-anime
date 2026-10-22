@@ -3,8 +3,14 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      rankings_only:
+        description: Refresh only yearly rankings
+        type: boolean
+        default: false
   schedule:
     - cron: '17 0,6,12,18 * * *'
+    - cron: '47 * * * *'
 permissions:
   contents: write
   pages: write
@@ -22,12 +28,12 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Refresh public metadata
-        if: github.event_name != 'push'
+        if: github.event_name != 'push' && github.event.schedule != '47 * * * *' && !inputs.rankings_only
         run: node tools/sync-metadata.mjs docs
       - name: Check official production announcements
-        if: github.event_name != 'push'
+        if: github.event_name != 'push' && github.event.schedule != '47 * * * *' && !inputs.rankings_only
         run: node tools/sync-announcements.mjs docs
-      - name: Refresh yearly Top 50 (weekly snapshot)
+      - name: Refresh yearly Top 50 (hourly ranking)
         if: github.event_name != 'push'
         run: node tools/fetch-annual-top50.mjs docs
       - name: Reconcile series and yearly coverage
