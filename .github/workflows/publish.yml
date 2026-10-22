@@ -39,6 +39,8 @@ jobs:
       - name: Reconcile series and yearly coverage
         if: github.event_name != 'push'
         run: node tools/complete-resources.mjs reconcile docs
+      - name: Embed episode directories into catalog
+        run: node tools/embed-directories.mjs docs
       - name: Save updated metadata
         if: github.event_name != 'push'
         run: |

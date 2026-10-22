@@ -16,7 +16,7 @@
     if(u.pathname==='/api/vod') {
       const provider=u.searchParams.get('source')||'lz',id=u.searchParams.get('id'),q=(u.searchParams.get('q')||'').trim().toLowerCase(),page=Number(u.searchParams.get('page')||1),region=u.searchParams.get('region')||'jp';
       if(!providerNames[provider]||!Number.isInteger(page)||page<1||page>500||q.length>100||id&&!/^\d{1,12}$/.test(id)||!['jp','cn','all'].includes(region))return json({error:'参数无效'},400);
-      if(id){try{return json({provider:providerNames[provider],items:[await file(`details/${provider}_${id}.json`)],mode:'published'});}catch{return json({provider:providerNames[provider],items:[],mode:'published'});}}
+      if(id){const source=(await catalog()).items.flatMap(s=>(s.inlineSources||[]).map(x=>({...x,name:s.name,name_cn:s.name_cn}))).find(s=>s.provider===provider&&s.vodId===id);if(source)return json({provider:providerNames[provider],items:[{...source,id:'vod_'+provider+'_'+id,providerName:providerNames[provider]}],mode:'embedded'});try{return json({provider:providerNames[provider],items:[await file(`details/${provider}_${id}.json`)],mode:'published'});}catch{return json({provider:providerNames[provider],items:[],mode:'published'});}}
       const data=await catalog(),map=new Map();
       for(const s of data.items)for(const variant of [{...s},...(s.alternatives||[]).map(a=>({...s,...a,id:`vod_${a.provider}_${a.vodId}`,providerName:providerNames[a.provider]}))]) {
         if(variant.provider===provider&&(region==='all'||variant.region===region)&&(!q||(variant.name_cn+' '+variant.name).toLowerCase().includes(q)))map.set(variant.provider+'_'+variant.vodId,variant);
