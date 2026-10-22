@@ -1,7 +1,8 @@
 // Bounded recovery and speed-aware buffering. Never persist media or prefetch episodes.
 const playbackRates=[0.5,1,1.25,1.5,2];
 let playerHealth=null;
-function playbackRate(){const value=Number(document.querySelector('#playback-speed')?.value);return playbackRates.includes(value)?value:1;}
+let temporaryPlaybackRate=null;
+function playbackRate(){const value=temporaryPlaybackRate??Number(document.querySelector('#playback-speed')?.value);return playbackRates.includes(value)?value:1;}
 function playbackBufferConfig(low,rate=playbackRate()){
   const forward=Math.min(96,Math.ceil((low?24:40)*Math.max(1,rate)));
   const config={maxBufferLength:forward,maxMaxBufferLength:Math.min(120,forward*1.5),backBufferLength:low?6:12,maxBufferSize:(low?24:40)*1024*1024,startLevel:0,capLevelToPlayerSize:true,abrBandWidthFactor:0.7,abrBandWidthUpFactor:0.5};

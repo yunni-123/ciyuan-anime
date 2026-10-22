@@ -1,0 +1,127 @@
+{
+  "additions": 32,
+  "details": 77,
+  "total": 2217,
+  "reports": [
+    {
+      "query": "目隐都市",
+      "source": "md",
+      "count": 1
+    },
+    {
+      "query": "阳炎",
+      "source": "md",
+      "count": 0
+    },
+    {
+      "query": "阳炎",
+      "source": "zy360",
+      "count": 0
+    },
+    {
+      "query": "幻想万华镜",
+      "source": "md",
+      "count": 0
+    },
+    {
+      "query": "梦想夏乡",
+      "source": "md",
+      "count": 1
+    },
+    {
+      "query": "秘封活动记录",
+      "source": "md",
+      "count": 0
+    },
+    {
+      "query": "目隐都市",
+      "source": "zy360",
+      "count": 0
+    },
+    {
+      "query": "梦想夏乡",
+      "source": "zy360",
+      "count": 0
+    },
+    {
+      "query": "化物语",
+      "source": "md",
+      "count": 1
+    },
+    {
+      "query": "化物语",
+      "source": "zy360",
+      "count": 0
+    },
+    {
+      "query": "伤物语",
+      "source": "md",
+      "count": 4
+    },
+    {
+      "query": "幻想万华镜",
+      "source": "zy360",
+      "count": 0
+    },
+    {
+      "query": "秘封活动记录",
+      "source": "zy360",
+      "count": 0
+    },
+    {
+      "query": "命运石之门",
+      "source": "zy360",
+      "count": 4
+    },
+    {
+      "query": "伤物语",
+      "source": "zy360",
+      "count": 1
+    },
+    {
+      "query": "命运石之门",
+      "source": "md",
+      "count": 6
+    },
+    {
+      "query": "夏目友人帐",
+      "source": "md",
+      "count": 11
+    },
+    {
+      "query": "福音战士",
+      "source": "md",
+      "count": 5
+    },
+    {
+      "query": "高达",
+      "source": "md",
+      "count": 10
+    },
+    {
+      "query": "福音战士",
+      "source": "zy360",
+      "count": 4
+    },
+    {
+      "query": "命运之夜",
+      "source": "md",
+      "count": 11
+    },
+    {
+      "query": "夏目友人帐",
+      "source": "zy360",
+      "count": 13
+    },
+    {
+      "query": "高达",
+      "source": "zy360",
+      "count": 5
+    },
+    {
+      "query": "命运之夜",
+      "source": "zy360",
+      "count": 0
+    }
+  ]
+}

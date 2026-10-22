@@ -1,0 +1,907 @@
+{
+  "updatedAt": "2026-10-22",
+  "note": "观看路线为编辑建议；资料与外链不等于本站拥有完整媒体文件。各平台价格、语言及地区条件以原站为准。",
+  "items": [
+    {
+      "id": "touhou",
+      "name": "东方 Project",
+      "aliases": [
+        "东方",
+        "東方",
+        "Touhou",
+        "幻想万华镜",
+        "秘封",
+        "梦想夏乡"
+      ],
+      "summary": "ZUN 与上海爱丽丝幻乐团创作的弹幕游戏系列，以幻想乡为舞台，延伸出音乐、官方书籍与大量同人创作。游戏、设定书、同人动画可以从不同入口体验。",
+      "start": "喜欢游戏：先玩一个官方体验版的 Easy 难度；喜欢故事：从《东方铃奈庵》或《东方茨歌仙》认识日常；喜欢音乐：先听原作曲，再找喜欢的同人社团。",
+      "route": [
+        "先了解灵梦、魔理沙和幻想乡的基本设定，不必背角色表。",
+        "选择一种媒介：游戏体验版／官方漫画／原作音乐，先体验一部。",
+        "再沿喜欢的角色或事件补原作游戏与设定书。",
+        "最后看同人动画、同人游戏和改编曲；把各社团的演绎当作各自的版本。"
+      ],
+      "notes": [
+        "《幻想万华镜》《梦想夏乡》《秘封活动记录》是同人动画，不是上海爱丽丝幻乐团制作的官方 TV 主线。",
+        "新旧作与小数点作品各有发行渠道；历史目录不等于目前都可购买或免费游玩。",
+        "旧 PC-98 作品仅列作品名；未找到官方数字发行入口时不提供下载地址。"
+      ],
+      "sections": [
+        {
+          "media": "游戏",
+          "title": "弹幕正作 · 历史目录",
+          "works": [
+            "1 东方灵异传",
+            "2 东方封魔录",
+            "3 东方梦时空",
+            "4 东方幻想乡",
+            "5 东方怪绮谈",
+            "6 东方红魔乡",
+            "7 东方妖妖梦",
+            "8 东方永夜抄",
+            "9 东方花映塚",
+            "10 东方风神录",
+            "11 东方地灵殿",
+            "12 东方星莲船",
+            "13 东方神灵庙",
+            "14 东方辉针城",
+            "15 东方绀珠传",
+            "16 东方天空璋",
+            "17 东方鬼形兽",
+            "18 东方虹龙洞",
+            "19 东方兽王园",
+            "20 东方锦上京"
+          ],
+          "links": [
+            {
+              "name": "上海爱丽丝幻乐团 · 原作与体验版",
+              "url": "https://www16.big.or.jp/~zun/",
+              "access": "官网 / 部分免费体验版"
+            },
+            {
+              "name": "官方作品目录",
+              "url": "https://touhou-project.news/titles/",
+              "access": "资料 / 发布动态"
+            },
+            {
+              "name": "官方新作消息",
+              "url": "https://touhou-project.news/official/",
+              "access": "资料 / 发布动态"
+            }
+          ],
+          "note": "从官方目录进入对应发行渠道；旧作可能无数字版，不能直接在手机网页运行。"
+        },
+        {
+          "media": "游戏",
+          "title": "小数点作品与合作作",
+          "works": [
+            "萃梦想 7.5",
+            "文花帖 9.5",
+            "绯想天 10.5",
+            "非想天则 12.3",
+            "文花帖 DS 12.5",
+            "妖精大战争 12.8",
+            "心绮楼 13.5",
+            "弹幕天邪鬼 14.3",
+            "深秘录 14.5",
+            "凭依华 15.5",
+            "秘封噩梦日记 16.5",
+            "刚欲异闻 17.5",
+            "弹幕狂们的黑市 18.5"
+          ],
+          "links": [
+            {
+              "name": "官方分类目录",
+              "url": "https://touhou-project.news/titles/",
+              "access": "资料 / 发布动态"
+            },
+            {
+              "name": "黄昏边境 · 合作游戏开发方",
+              "url": "https://www.tasofro.net/",
+              "access": "官网 / 体验与商品信息"
+            }
+          ],
+          "note": ""
+        },
+        {
+          "media": "游戏",
+          "title": "重制与公认衍生游戏",
+          "works": [
+            "红魔乡：New Classic（含 Classic 模式）",
+            "东方 Luna Nights",
+            "东方夜雀食堂",
+            "东方弹幕神乐 幻想失落",
+            "东方幻想 Eclipse"
+          ],
+          "links": [
+            {
+              "name": "红魔乡 New Classic 官网",
+              "url": "https://touhou-project.news/shanghai-alice-reprise/",
+              "access": "商品 / 付费游戏"
+            },
+            {
+              "name": "公认作品总目录",
+              "url": "https://touhou-project.news/products/",
+              "access": "公认衍生作品 / 多为付费"
+            }
+          ],
+          "note": "公认衍生作有独立开发团队与玩法，不能当成 ZUN 编号正作。"
+        },
+        {
+          "media": "漫画 / 设定",
+          "title": "官方出版与世界观",
+          "works": [
+            "东方三月精",
+            "东方儚月抄",
+            "东方茨歌仙",
+            "东方铃奈庵",
+            "东方醉蝶华",
+            "东方智灵奇传",
+            "东方文花帖（书籍）",
+            "东方求闻史纪",
+            "东方求闻口授",
+            "东方文果真报",
+            "The Grimoire of Marisa",
+            "The Grimoire of Usami"
+          ],
+          "links": [
+            {
+              "name": "官方出版目录",
+              "url": "https://touhou-project.news/titles/",
+              "access": "资料 / 发布动态"
+            },
+            {
+              "name": "官方书籍新闻",
+              "url": "https://touhou-project.news/books/",
+              "access": "出版消息 / 试读以出版社为准"
+            }
+          ],
+          "note": "漫画与设定书功能不同；书籍《文花帖》也不是同名摄影弹幕游戏。"
+        },
+        {
+          "media": "音乐",
+          "title": "原作音乐与秘封俱乐部",
+          "works": [
+            "各游戏原声",
+            "蓬莱人形",
+            "莲台野夜行",
+            "梦违科学世纪",
+            "卯酉东海道",
+            "大空魔术",
+            "鸟船遗迹",
+            "伊奘诺物质",
+            "燕石博物志",
+            "旧约酒场",
+            "虹色的北斗七星",
+            "七夕坂梦幻能"
+          ],
+          "links": [
+            {
+              "name": "原作者与音乐目录",
+              "url": "https://www16.big.or.jp/~zun/",
+              "access": "资料 / 发布动态"
+            },
+            {
+              "name": "秘封与原作最新消息",
+              "url": "https://touhou-project.news/official/",
+              "access": "资料 / 发布动态"
+            }
+          ],
+          "note": "音乐专辑附带的小故事可作为秘封入口；同人改编曲另属各社团作品。"
+        },
+        {
+          "media": "动画 / 同人",
+          "title": "同人动画与创作入口",
+          "works": [
+            "幻想万华镜（满福神社）",
+            "梦想夏乡（舞风）",
+            "秘封活动记录（京都幻想剧团）"
+          ],
+          "links": [
+            {
+              "name": "满福神社 · 第19话官方预告",
+              "url": "https://www.youtube.com/watch?v=CnCokFnfRmg",
+              "access": "同人作者发布 / 免费预告 / 海外平台"
+            },
+            {
+              "name": "京都幻想剧团 · 制作资料",
+              "url": "https://camp-fire.jp/projects/733086/view",
+              "access": "制作团队项目页 / 非正片"
+            },
+            {
+              "name": "官方相关社团与出版链接",
+              "url": "https://touhou-project.news/link/",
+              "access": "资料 / 发布动态"
+            },
+            {
+              "name": "东方二次创作说明",
+              "url": "https://touhou-project.news/guideline/",
+              "access": "原作者二次创作说明"
+            }
+          ],
+          "note": "保留作者发布与制作资料入口；预告和项目页不标成可播放全集。"
+        }
+      ],
+      "verifiedAt": "2026-10-22"
+    },
+    {
+      "id": "kagerou",
+      "name": "阳炎 Project",
+      "aliases": [
+        "阳炎",
+        "カゲロウ",
+        "Kagerou",
+        "目隐都市",
+        "Mekakucity"
+      ],
+      "summary": "じん（自然之敌 P）从歌曲展开的跨媒体故事，围绕拥有特殊能力的少年少女“目隐团”。音乐、小说、漫画与动画相互补充，各自有不同展开。",
+      "start": "先听《阳炎眩乱》《如月 Attention》《夜咄 Deceive》等代表曲认识人物，再选 TV 动画或小说第一卷进入故事；不用先查结局和时间线。",
+      "route": [
+        "歌曲入口：从代表曲和《目隐都市日记》《目隐都市记录》等专辑认识角色。",
+        "故事入口二选一：TV《目隐都市的演绎者》，或小说《阳炎眩乱》I 起按卷号读。",
+        "补小说 I–VIII 与漫画 1–13 的各自路线。",
+        "再补短片《in a day’s》及后续音乐；二刷时比较不同媒介的线索。"
+      ],
+      "notes": [
+        "歌曲、小说、漫画和动画的不同展开不宜硬接成同一条连续时间线。",
+        "短片《in a day’s》不是 TV 第二季。官方旧站可能无法访问，保留制作方和出版社替代入口。"
+      ],
+      "sections": [
+        {
+          "media": "音乐",
+          "title": "歌曲与音乐企划",
+          "works": [
+            "阳炎眩乱",
+            "如月 Attention",
+            "夜咄 Deceive",
+            "Lost Time Memory",
+            "Summer Time Record",
+            "目隐都市日记",
+            "目隐都市记录",
+            "目隐都市 Reload"
+          ],
+          "links": [
+            {
+              "name": "じん 作者官网 · 音乐与 MV",
+              "url": "https://jin-jin-suruyo.com/",
+              "access": "作者发布 / 音乐与 MV 入口"
+            },
+            {
+              "name": "1st PLACE · 阳炎企划介绍",
+              "url": "https://1stplace.co.jp/original/works/",
+              "access": "资料 / 发布动态"
+            },
+            {
+              "name": "企划最新动态",
+              "url": "https://1stplace.co.jp/news_cat/kagerou_project_ip_creation",
+              "access": "资料 / 发布动态"
+            }
+          ],
+          "note": "从制作方介绍进入作者与音源页；部分海外音源平台在大陆网络下可能不可用。"
+        },
+        {
+          "media": "小说",
+          "title": "小说版 · 按卷号阅读",
+          "works": [
+            "I in a daze",
+            "II a headphone actor",
+            "III the children reason",
+            "IV the missing children",
+            "V the deceiving",
+            "VI over the dimension",
+            "VII from the darkness",
+            "VIII summer time reload"
+          ],
+          "links": [
+            {
+              "name": "KADOKAWA 小说出版检索",
+              "url": "https://www.kadokawa.co.jp/product/search/?kw=カゲロウデイズ",
+              "access": "出版社检索 / 部分试读 / 购买"
+            },
+            {
+              "name": "制作方出版记录",
+              "url": "https://1stplace.co.jp/company",
+              "access": "资料 / 发布动态"
+            }
+          ],
+          "note": ""
+        },
+        {
+          "media": "漫画",
+          "title": "漫画版 · 佐藤真寻",
+          "works": [
+            "阳炎眩乱 漫画 1–13 卷"
+          ],
+          "links": [
+            {
+              "name": "カドコミ · 漫画原站",
+              "url": "https://comic-walker.com/detail/KC_001767_S",
+              "access": "部分话试读 / 全卷付费"
+            }
+          ],
+          "note": ""
+        },
+        {
+          "media": "动画",
+          "title": "动画与短片",
+          "works": [
+            "目隐都市的演绎者（TV）",
+            "阳炎眩乱 -in a day’s-（短片）"
+          ],
+          "links": [
+            {
+              "name": "TV 动画官网",
+              "url": "https://www.mekakucityactors.com/",
+              "access": "资料 / 发布动态"
+            },
+            {
+              "name": "官方企划介绍与短片公告",
+              "url": "https://www.mekakucityactors.com/intro/",
+              "access": "资料 / 发布动态"
+            }
+          ],
+          "note": "TV 与短片分别查找；目录中有条目不代表该线路一定能播。"
+        }
+      ],
+      "verifiedAt": "2026-10-22"
+    },
+    {
+      "id": "fate",
+      "name": "Fate 系列",
+      "aliases": [
+        "Fate",
+        "命运之夜",
+        "圣杯战争",
+        "命运/",
+        "命运冠位",
+        "命运奇异"
+      ],
+      "summary": "以《Fate/stay night》视觉小说为起点，发展出不同路线、前传和独立世界的圣杯战争故事。没有一条把所有 Fate 都串起来的通用时间线。",
+      "start": "动画入门可先选 UBW 2014 TV 版；愿意读游戏则从全年龄 REMASTERED 的原作路线开始。",
+      "route": [
+        "Unlimited Blade Works（2014 TV，两季含第 0 话）",
+        "Heaven’s Feel 剧场版三部曲，按 I → II → III",
+        "Fate/Zero 两季：前传含对本篇谜底的提前揭示，建议本篇后补",
+        "2006 TV 补 Saber 路线；再按兴趣进入独立分支"
+      ],
+      "notes": [
+        "这是照顾悬念的编辑建议；2006 → UBW → HF 也是可选路线。",
+        "2010 UBW 剧场版与 2014 TV 版改编同一路线，初看优先 TV。",
+        "Apocrypha、EXTRA、Grand Order、strange Fake 等有不同背景，不是 stay night 的顺序续季。"
+      ],
+      "sections": [
+        {
+          "media": "动画",
+          "title": "本篇与前传",
+          "works": [
+            "Fate/stay night（2006）",
+            "Unlimited Blade Works（2014）",
+            "Heaven’s Feel I / II / III",
+            "Fate/Zero"
+          ],
+          "links": [
+            {
+              "name": "UBW 官网",
+              "url": "https://www.fate-sn.com/ubw/",
+              "access": "资料 / 发布动态"
+            },
+            {
+              "name": "HF 官网",
+              "url": "https://www.fate-sn.com/",
+              "access": "资料 / 发布动态"
+            }
+          ],
+          "note": ""
+        },
+        {
+          "media": "游戏 / 小说 / 动画",
+          "title": "独立分支入口",
+          "works": [
+            "Fate/stay night REMASTERED",
+            "Fate/Grand Order",
+            "Fate/Apocrypha",
+            "Fate/EXTRA Last Encore",
+            "Fate/strange Fake",
+            "魔法少女伊莉雅",
+            "卫宫家今天的饭"
+          ],
+          "links": [
+            {
+              "name": "TYPE-MOON 原作与产品",
+              "url": "https://typemoon.com/",
+              "access": "原作目录 / 多为付费"
+            },
+            {
+              "name": "Fate/Grand Order 官网",
+              "url": "https://www.fate-go.jp/",
+              "access": "游戏 / 含内购"
+            }
+          ],
+          "note": "FGO 动画并未覆盖全部游戏章节，不要仅凭季数拼接全部剧情。"
+        }
+      ],
+      "verifiedAt": "2026-10-22"
+    },
+    {
+      "id": "monogatari",
+      "name": "〈物语〉系列",
+      "aliases": [
+        "化物语",
+        "伤物语",
+        "伪物语",
+        "猫物语",
+        "花物语",
+        "凭物语",
+        "终物语",
+        "历物语",
+        "续·终物语",
+        "物语系列"
+      ],
+      "summary": "西尾维新的怪异青春群像，事件揭示顺序本身是叙事的一部分。不同篇章以人物与怪异命名，不宜按片名中的数字理解季数。",
+      "start": "从《化物语》开始。下面提供先补前传的简明路线，兼顾人物关系与理解；不是逐日时间线。",
+      "route": [
+        "化物语 → 伤物语三部曲",
+        "伪物语 → 猫物语（黑）",
+        "物语系列 Second Season → 花物语",
+        "凭物语 → 历物语 → 终物语（上中下全部篇章） → 续·终物语",
+        "Off & Monster Season（愚物语、抚物语、业物语等，按实际上线篇章继续）"
+      ],
+      "notes": [
+        "《伤物语 -历吸血鬼-》是三部曲的重新剪辑版，可二选一，内容有取舍。",
+        "《花物语》在时间线上偏后；二刷才建议按事件发生顺序重排。",
+        "路线将《历物语》放在《终物语》前方便理解；也可完整按动画首播顺序观看。"
+      ],
+      "sections": [
+        {
+          "media": "动画",
+          "title": "TV、网络篇章与电影",
+          "works": [
+            "化物语",
+            "伤物语 I 铁血篇 / II 热血篇 / III 冷血篇",
+            "伪物语",
+            "猫物语 黑",
+            "Second Season",
+            "花物语",
+            "凭物语",
+            "历物语",
+            "终物语",
+            "续·终物语",
+            "Off & Monster Season"
+          ],
+          "links": [
+            {
+              "name": "动画官方门户",
+              "url": "https://www.monogatari-series.com/",
+              "access": "资料 / 发布动态"
+            },
+            {
+              "name": "官方系列档案",
+              "url": "https://www.monogatari-series.com/series/?code=monogatari-series",
+              "access": "资料 / 发布动态"
+            }
+          ],
+          "note": ""
+        },
+        {
+          "media": "小说 / 漫画 / 音乐",
+          "title": "原作与改编",
+          "works": [
+            "西尾维新 原作小说",
+            "大暮维人《化物语》漫画",
+            "动画主题曲与原声"
+          ],
+          "links": [
+            {
+              "name": "讲谈社出版门户",
+              "url": "https://www.kodansha.co.jp/",
+              "access": "出版社 / 检索与购买"
+            },
+            {
+              "name": "动画音乐与影碟",
+              "url": "https://www.monogatari-series.com/",
+              "access": "官网 / 商品目录"
+            }
+          ],
+          "note": ""
+        }
+      ],
+      "verifiedAt": "2026-10-22"
+    },
+    {
+      "id": "gundam",
+      "name": "高达 · 宇宙世纪与独立世界",
+      "aliases": [
+        "高达",
+        "钢弹",
+        "敢达",
+        "Gundam",
+        "ガンダム"
+      ],
+      "summary": "大型机器人动画系列。宇宙世纪（UC）有历史联系；SEED、00、W、铁血、水星的魔女等分别有自己的背景，可以单独入门。",
+      "start": "想追 UC 主线从 0079 开始；想先试一部现代独立作品，可选《00》或《水星的魔女》，无需先补几十年作品。",
+      "route": [
+        "UC 主干：机动战士高达 0079（TV 或总集篇三部曲二选一）",
+        "Z 高达 TV → ZZ 高达 → 逆袭的夏亚",
+        "UC 独角兽 → NT → 闪光的哈萨维，作为后续分支继续",
+        "再补 0080、0083、第 08 MS 小队等侧面故事；F91、V 高达为更后时代"
+      ],
+      "notes": [
+        "Z 剧场版《星之继承者》改动了结局；想接 ZZ 时优先看 Z TV。",
+        "独角兽 OVA 与 RE:0096 为不同剪辑版本；初看选一版即可。",
+        "THE ORIGIN 是另有改写的前传视角；GQuuuuuuX 也不宜直接当作 UC 主线的下一季。"
+      ],
+      "sections": [
+        {
+          "media": "动画",
+          "title": "UC 主干与外传",
+          "works": [
+            "0079",
+            "Z 高达",
+            "ZZ 高达",
+            "逆袭的夏亚",
+            "独角兽",
+            "NT",
+            "闪光的哈萨维",
+            "0080 口袋里的战争",
+            "0083 星尘的回忆",
+            "第 08 MS 小队",
+            "F91",
+            "V 高达",
+            "THE ORIGIN",
+            "雷霆宙域"
+          ],
+          "links": [
+            {
+              "name": "高达官方系列入口",
+              "url": "https://gundam-official.com/",
+              "access": "官方系列资料"
+            },
+            {
+              "name": "Z 高达 · 制作方作品档案",
+              "url": "https://gundam-official.com/series/z",
+              "access": "资料 / 发布动态"
+            }
+          ],
+          "note": ""
+        },
+        {
+          "media": "动画 / 游戏 / 模型",
+          "title": "独立世界与扩展",
+          "works": [
+            "W → 无尽的华尔兹",
+            "SEED → DESTINY → FREEDOM",
+            "00 两季 → 先驱者的觉醒",
+            "铁血的奥尔芬斯",
+            "水星的魔女（含 PROLOGUE）",
+            "GQuuuuuuX"
+          ],
+          "links": [
+            {
+              "name": "GUNDAM.INFO 综合资讯",
+              "url": "https://www.gundam.info/",
+              "access": "动画 / 游戏 / 漫画 / 模型资讯"
+            }
+          ],
+          "note": "每条分支内部按先后续作观看；模型、漫画、游戏并非观看动画的前置要求。"
+        }
+      ],
+      "verifiedAt": "2026-10-22"
+    },
+    {
+      "id": "eva",
+      "name": "新世纪福音战士 EVA",
+      "aliases": [
+        "新世纪福音战士",
+        "福音战士",
+        "Evangelion",
+        "EVA"
+      ],
+      "summary": "围绕少年驾驶员与巨大人形兵器展开的原创动画。旧版 TV / 旧剧场版与新剧场版分别有自己的叙事。",
+      "start": "愿意了解原始表达：从 TV 版开始；偏好现代电影节奏：可以独立从新剧场版《序》开始。",
+      "route": [
+        "旧版路线：TV 第 1–26 话 → The End of Evangelion（Air / 真心为你）",
+        "Death(true)² 为总集性质，旧版看完后可选补",
+        "新版路线：序 → 破 → Q → 终（3.0+1.0）",
+        "漫画版为不同表达，可在任一动画路线之后阅读"
+      ],
+      "notes": [
+        "旧剧场版与 TV 最后两话有关联，但不要把新剧场版当作旧版第 27 话。",
+        "1.0 / 1.11、2.0 / 2.22 等是同一部的版本修订，不是额外续集。"
+      ],
+      "sections": [
+        {
+          "media": "动画",
+          "title": "两条入门路线",
+          "works": [
+            "TV 26 话",
+            "The End of Evangelion",
+            "Death(true)²",
+            "新剧场版 序 / 破 / Q / 终"
+          ],
+          "links": [
+            {
+              "name": "EVA 官方门户",
+              "url": "https://www.evangelion.jp/",
+              "access": "资料 / 发布动态"
+            }
+          ],
+          "note": ""
+        },
+        {
+          "media": "漫画 / 音乐 / 资料",
+          "title": "延伸内容",
+          "works": [
+            "贞本义行漫画版",
+            "动画原声与主题曲",
+            "官方出版与设定资料"
+          ],
+          "links": [
+            {
+              "name": "官方资讯与商品入口",
+              "url": "https://www.evangelion.jp/",
+              "access": "出版 / 音乐 / 商品信息"
+            }
+          ],
+          "note": ""
+        }
+      ],
+      "verifiedAt": "2026-10-22"
+    },
+    {
+      "id": "steinsgate",
+      "name": "命运石之门",
+      "aliases": [
+        "命运石之门",
+        "Steins",
+        "シュタインズ"
+      ],
+      "summary": "科学冒险系列中的时间旅行故事，原作是视觉小说，动画本篇与《0》以不同分支相互照应。",
+      "start": "先完整看 2011 TV 本篇，不建议初看时在中间按网络时间线拆开。",
+      "route": [
+        "命运石之门 TV 第 1–24 话",
+        "OVA 第 25 话与剧场版《负荷领域的既视感》：本篇后可选补",
+        "第 23 话 β 分支《境界面上的缺失之环》 → 命运石之门 0",
+        "二刷再比较本篇与 0；原作游戏可按本篇 → 0 阅读"
+      ],
+      "notes": [
+        "第 23β 是通向《0》的分支入口，不是把原版第 23 话简单替换掉的修订版。",
+        "《负荷领域的既视感》是电影扩展故事，不是《0》的前置章节。"
+      ],
+      "sections": [
+        {
+          "media": "动画",
+          "title": "本篇、分支与电影",
+          "works": [
+            "命运石之门",
+            "境界面上的缺失之环 23β",
+            "命运石之门 0",
+            "负荷领域的既视感"
+          ],
+          "links": [
+            {
+              "name": "0 动画官网",
+              "url": "https://steinsgate0-anime.com/",
+              "access": "资料 / 发布动态"
+            },
+            {
+              "name": "电影官方介绍",
+              "url": "https://steinsgate-movie.jp/introduction/",
+              "access": "资料 / 发布动态"
+            }
+          ],
+          "note": ""
+        },
+        {
+          "media": "游戏 / 漫画 / 音乐",
+          "title": "原作与衍生",
+          "works": [
+            "STEINS;GATE 原作视觉小说",
+            "STEINS;GATE 0",
+            "ELITE（动画素材重制）",
+            "比翼恋理的爱人（衍生）"
+          ],
+          "links": [
+            {
+              "name": "科学 ADV 官方系列",
+              "url": "https://www.kagaku-adv.com/",
+              "access": "游戏资料 / 多为付费"
+            }
+          ],
+          "note": ""
+        }
+      ],
+      "verifiedAt": "2026-10-22"
+    },
+    {
+      "id": "toaru",
+      "name": "某系列 · 魔禁 / 超炮",
+      "aliases": [
+        "魔法禁书目录",
+        "科学超电磁炮",
+        "科学一方通行",
+        "某科学",
+        "某魔术"
+      ],
+      "summary": "以学园都市为中心，魔法禁书目录推进大世界主线，超电磁炮与一方通行从其他人物视角展开。小说、漫画、动画的覆盖范围不同。",
+      "start": "重视世界观：先《魔法禁书目录》I；喜欢御坂美琴与日常群像：也可先《超电磁炮》第一季，再回魔禁。",
+      "route": [
+        "魔法禁书目录 I → 科学超电磁炮",
+        "魔法禁书目录 II → 剧场版《恩底弥翁的奇迹》 → 超电磁炮 S",
+        "魔法禁书目录 III → 科学一方通行 → 超电磁炮 T",
+        "后续新动画以官网实际播出状态为准；原作小说按旧约 → 新约 → 创约继续"
+      ],
+      "notes": [
+        "这是以已播动画为主的入门路线，事件时间线会交叉。",
+        "超炮 S 与魔禁 I 有重叠事件，但人物视角不同，不建议整段跳过。",
+        "魔禁 III 信息量较大，可在看后补原作对应篇章，避免先看设定解释被剧透。"
+      ],
+      "sections": [
+        {
+          "media": "动画",
+          "title": "主线与学园都市支线",
+          "works": [
+            "魔法禁书目录 I / II / III",
+            "恩底弥翁的奇迹",
+            "科学超电磁炮 / S / T",
+            "科学一方通行"
+          ],
+          "links": [
+            {
+              "name": "某系列官方门户",
+              "url": "https://toaru-project.com/",
+              "access": "资料 / 发布动态"
+            }
+          ],
+          "note": ""
+        },
+        {
+          "media": "小说 / 漫画",
+          "title": "原作与不同视角",
+          "works": [
+            "魔法禁书目录 旧约 / 新约 / 创约",
+            "超电磁炮 漫画",
+            "一方通行 漫画",
+            "暗部少女共栖 ITEM"
+          ],
+          "links": [
+            {
+              "name": "官方书籍与漫画入口",
+              "url": "https://toaru-project.com/",
+              "access": "出版社与系列信息"
+            }
+          ],
+          "note": ""
+        }
+      ],
+      "verifiedAt": "2026-10-22"
+    },
+    {
+      "id": "rezero",
+      "name": "Re:从零开始的异世界生活",
+      "aliases": [
+        "从零开始",
+        "Reゼロ",
+        "リゼロ"
+      ],
+      "summary": "以菜月昴的异世界经历展开的轻小说改编系列。主季依次延续，OVA 补人物过去与日常。",
+      "start": "先选第一季原版或新编集版的一种，看完再进第二季。",
+      "route": [
+        "第一季（原版 / 新编集版二选一）",
+        "Memory Snow → 冰结之绊（放在第一季后，进入第二季前）",
+        "第二季 前半 → 后半",
+        "第三季 → 第四季，按官网已上线篇章继续"
+      ],
+      "notes": [
+        "《冰结之绊》事件发生较早，初看建议第一季后补，不必放最前面。",
+        "原版与新编集版主要是剪辑与补充差别，不是两季不同主线。",
+        "Web 原稿与出版文库版有差异，补小说时先确认版本。"
+      ],
+      "sections": [
+        {
+          "media": "动画",
+          "title": "TV 与 OVA",
+          "works": [
+            "第一季",
+            "Memory Snow",
+            "冰结之绊",
+            "第二季",
+            "第三季",
+            "第四季"
+          ],
+          "links": [
+            {
+              "name": "Re:ZERO 官方动画门户",
+              "url": "https://re-zero-anime.jp/",
+              "access": "资料 / 发布动态"
+            }
+          ],
+          "note": ""
+        },
+        {
+          "media": "小说 / 漫画 / 音乐",
+          "title": "原作与出版改编",
+          "works": [
+            "长月达平 文库原作",
+            "各章漫画改编",
+            "动画主题曲与原声"
+          ],
+          "links": [
+            {
+              "name": "官网书籍入口",
+              "url": "https://re-zero-anime.jp/",
+              "access": "官方出版与音乐信息"
+            }
+          ],
+          "note": ""
+        }
+      ],
+      "verifiedAt": "2026-10-22"
+    },
+    {
+      "id": "natsume",
+      "name": "夏目友人帐",
+      "aliases": [
+        "夏目友人帐",
+        "夏目友人帳",
+        "Natsume"
+      ],
+      "summary": "夏目贵志与妖怪相遇的温柔故事。多季以短篇积累人物关系，适合按播出顺序慢慢看。",
+      "start": "从第一季第一话认识友人帐和猫咪老师，不用先看剧场版。",
+      "route": [
+        "夏目友人帐 → 续 → 叁 → 肆 → 伍 → 陆",
+        "剧场版《缘结空蝉》",
+        "特别上映《唤石与可疑访客》",
+        "第七季《漆》与其特别篇；OVA 可在对应季后补"
+      ],
+      "notes": [
+        "电影与特别上映不是第七季的替代版本。",
+        "单元故事可以轻松观看，初看顺序仍建议保留人物关系的积累。"
+      ],
+      "sections": [
+        {
+          "media": "动画",
+          "title": "七季与电影 / OVA",
+          "works": [
+            "第一季",
+            "续",
+            "叁",
+            "肆",
+            "伍",
+            "陆",
+            "缘结空蝉",
+            "唤石与可疑访客",
+            "漆",
+            "曾几何时下雪之日",
+            "猫咪老师首次变身使者"
+          ],
+          "links": [
+            {
+              "name": "动画官方门户",
+              "url": "https://www.natsume-anime.jp/",
+              "access": "资料 / 发布动态"
+            }
+          ],
+          "note": ""
+        },
+        {
+          "media": "漫画 / 音乐 / 舞台",
+          "title": "原作与延伸",
+          "works": [
+            "绿川幸 原作漫画",
+            "动画原声",
+            "SOUND THEATRE 朗读剧"
+          ],
+          "links": [
+            {
+              "name": "官方出版与活动资讯",
+              "url": "https://www.natsume-anime.jp/",
+              "access": "漫画 / 音乐 / 舞台公告"
+            }
+          ],
+          "note": ""
+        }
+      ],
+      "verifiedAt": "2026-10-22"
+    }
+  ]
+}
