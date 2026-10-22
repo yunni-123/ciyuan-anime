@@ -12,7 +12,7 @@ let anySuccess=false;
 async function get(url){let last;for(let attempt=0;attempt<2;attempt++){try{const r=await fetch(url,{headers:{'User-Agent':'CiyuanMetadata/1.0','Accept':'application/json'},signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('HTTP '+r.status);const text=await r.text();if(text.length>5000000)throw Error('Metadata exceeds size limit');return JSON.parse(text);}catch(e){last=e;}}throw last;}
 for(const [id,p]of Object.entries(providers)) {
   let pages=0,received=0,failed=0;
-  for(let page=1;page<=2;page++) {
+  for(let page=1;page<=4;page++) {
     const u=new URL(p.url);u.searchParams.set('ac','detail');u.searchParams.set('t',p.type);u.searchParams.set('pg',page);
     try {
       const data=await get(u);pages++;anySuccess=true;
