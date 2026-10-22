@@ -27,12 +27,18 @@ jobs:
       - name: Check official production announcements
         if: github.event_name != 'push'
         run: node tools/sync-announcements.mjs docs
+      - name: Refresh yearly Top 50 (weekly snapshot)
+        if: github.event_name != 'push'
+        run: node tools/fetch-annual-top50.mjs docs
+      - name: Reconcile series and yearly coverage
+        if: github.event_name != 'push'
+        run: node tools/complete-resources.mjs reconcile docs
       - name: Save updated metadata
         if: github.event_name != 'push'
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/vod-catalog.json docs/update-status.json docs/details docs/announcements.json
+          git add docs/vod-catalog.json docs/catalog.json docs/update-status.json docs/details docs/announcements.json docs/annual-top50.json docs/resource-coverage.json docs/resource-summary.json docs/completion-last-run.json
           if ! git diff --cached --quiet; then
             git commit -m 'Update published anime metadata'
             git push origin HEAD:main
