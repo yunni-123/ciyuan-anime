@@ -44,7 +44,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/vod-catalog.json docs/catalog.json docs/update-status.json docs/details docs/announcements.json docs/annual-top50.json docs/resource-coverage.json docs/resource-summary.json docs/completion-last-run.json
+          git add docs/vod-catalog.json docs/catalog.json docs/update-status.json docs/details docs/announcements.json docs/annual-top50.json docs/resource-coverage.json docs/resource-summary.json docs/completion-last-run.json docs/text-only-catalog.json
           if ! git diff --cached --quiet; then
             git commit -m 'Update published anime metadata'
             git push origin HEAD:main
