@@ -3,7 +3,7 @@ const dataArgument=process.argv[3]||(!['series','annual','reconcile'].includes(p
 export const ROOT=dataArgument?pathToFileURL(path.resolve(dataArgument)+path.sep):new URL('../web/',import.meta.url),CACHE=process.env.CIYUAN_METADATA_CACHE||(process.platform==='win32'?'E:/CodexProjects/ciyuan-ba1021/work/resource-completion-cache':path.join(os.tmpdir(),'ciyuan-metadata-cache'));
 export const UA='yunni-123/ciyuan-anime (https://github.com/yunni-123/ciyuan-anime)';
 const curatedAliases=await read(new URL('catalog-aliases.json',ROOT),{});
-export const providers=[{id:'md',name:'魔都动漫',url:'https://www.mdzyapi.com/api.php/provide/vod/'},{id:'zy360',name:'360资源',url:'https://360zy.com/api.php/provide/vod/'},{id:'lz',name:'量子资源',url:'https://cj.lziapi.com/api.php/provide/vod/'},{id:'bf',name:'暴风资源',url:'https://bfzyapi.com/api.php/provide/vod/'}];
+export const providers=[{id:'jy',name:'金鹰资源',url:'https://jinyingzy.com/api.php/provide/vod/'},{id:'md',name:'魔都动漫',url:'https://www.mdzyapi.com/api.php/provide/vod/'},{id:'zy360',name:'360资源',url:'https://360zy.com/api.php/provide/vod/'},{id:'lz',name:'量子资源',url:'https://cj.lziapi.com/api.php/provide/vod/'},{id:'bf',name:'暴风资源',url:'https://bfzyapi.com/api.php/provide/vod/'}];
 export async function read(file,otherwise=null){try{return JSON.parse(await fs.readFile(file,'utf8'));}catch{return otherwise;}}
 export async function write(file,data){await fs.mkdir(path.dirname(String(file).startsWith('file:')?new URL('.',file).pathname:path.resolve(String(file))),{recursive:true}).catch(()=>{});await fs.writeFile(file,JSON.stringify(data));}
 export const clean=s=>String(s||'').replace(/<[^>]*>/g,'').replace(/&nbsp;/g,' ').replace(/&amp;/g,'&').replace(/&quot;/g,'"').trim();

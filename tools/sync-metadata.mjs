@@ -2,7 +2,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 const root=path.resolve(process.argv[2]||'docs');
-const providers={md:{name:'魔都动漫',url:'https://www.mdzyapi.com/api.php/provide/vod/',type:2},zy360:{name:'360资源',url:'https://360zy.com/api.php/provide/vod/',type:40},lz:{name:'量子资源',url:'https://cj.lziapi.com/api.php/provide/vod/',type:30},bf:{name:'暴风资源',url:'https://bfzyapi.com/api.php/provide/vod/',type:41}};
+const providers={jy:{name:'金鹰资源',url:'https://jinyingzy.com/api.php/provide/vod/',type:25},md:{name:'魔都动漫',url:'https://www.mdzyapi.com/api.php/provide/vod/',type:2},zy360:{name:'360资源',url:'https://360zy.com/api.php/provide/vod/',type:40},lz:{name:'量子资源',url:'https://cj.lziapi.com/api.php/provide/vod/',type:30},bf:{name:'暴风资源',url:'https://bfzyapi.com/api.php/provide/vod/',type:41}};
 const clean=value=>String(value||'').replace(/<[^>]*>/g,'').replace(/&nbsp;/g,' ').slice(0,1000);
 const identity=s=>(s.name_cn||s.name).replace(/[\s！!·・]/g,'')+'_'+s.year;
 const catalogPath=path.join(root,'vod-catalog.json');

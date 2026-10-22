@@ -1,7 +1,7 @@
 // Static-hosted API compatibility. Only public metadata is served; no proxy or secrets.
 (() => {
   const originalFetch=window.fetch.bind(window),base=new URL('./',location.href);
-  const providerNames={md:'魔都动漫',zy360:'360资源',lz:'量子资源',bf:'暴风资源'};
+  const providerNames={jy:'金鹰资源',md:'魔都动漫',zy360:'360资源',lz:'量子资源',bf:'暴风资源'};
   let cachedCatalog;
   const file=async name=>{const r=await originalFetch(new URL(name,base));if(!r.ok)throw Error('资料尚未发布');return r.json();};
   const catalog=()=>cachedCatalog||(cachedCatalog=file('vod-catalog.json'));
