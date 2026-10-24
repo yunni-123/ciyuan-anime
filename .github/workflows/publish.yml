@@ -35,6 +35,7 @@ jobs:
         run: node tools/sync-metadata.mjs docs
       - name: Refresh imported Japanese anime from requested Sakura site
         if: github.event_name != 'push' && github.event.schedule != '47 0 * * 1' && !inputs.rankings_only
+        continue-on-error: true
         run: |
           node tools/yhdm-source.mjs docs
           node tools/check-yhdm-manifests.mjs docs
