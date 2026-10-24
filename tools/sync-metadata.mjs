@@ -26,7 +26,7 @@ await Promise.all(Object.entries(providers).map(async ([id,p]) => {
           const alternatives=[...(old.alternatives||[]),{provider:old.provider,vodId:old.vodId},...(entry.alternatives||[])];
           merged.set(identity(entry),{...old,...entry,classic:old.classic,classicRank:old.classicRank,franchise:old.franchise,alternatives:[...new Map(alternatives.filter(a=>a.provider!==id||a.vodId!==entry.vodId).map(a=>[a.provider+'_'+a.vodId,a])).values()]});
         } else merged.set(identity(entry),entry);
-        if(groups.length)await fs.writeFile(path.join(root,'details',id+'_'+entry.vodId+'.json'),JSON.stringify({...entry,playGroups:groups,snapshotAt:new Date().toISOString()}));
+        await fs.writeFile(path.join(root,'details',id+'_'+entry.vodId+'.json'),JSON.stringify({...entry,playGroups:groups,snapshotAt:new Date().toISOString()}));
         received++;
       }
     } catch {failed++;}
@@ -35,5 +35,5 @@ await Promise.all(Object.entries(providers).map(async ([id,p]) => {
 }));
 let status={};try{status=JSON.parse(await fs.readFile(path.join(root,'update-status.json'),'utf8'));}catch{}
 if(anySuccess){catalog.items=[...merged.values()].sort((a,b)=>(b.date||'').localeCompare(a.date||''));catalog.fetchedAt=new Date().toISOString();await fs.writeFile(catalogPath,JSON.stringify(catalog));}
-await fs.writeFile(path.join(root,'update-status.json'),JSON.stringify({...status,updatedAt:anySuccess?catalog.fetchedAt:status.updatedAt,total:catalog.items.length,storageReady:true,schedule:{enabled:true,mode:'github-actions',timezone:'Asia/Shanghai',hours:[2,8,14,20]},lastAttemptAt:new Date().toISOString(),providers:reports,warning:anySuccess?null:'本轮来源不可用，保留上次已发布目录。'}));
+await fs.writeFile(path.join(root,'update-status.json'),JSON.stringify({...status,updatedAt:anySuccess?catalog.fetchedAt:status.updatedAt,total:catalog.items.length,storageReady:true,schedule:{enabled:true,mode:'github-actions',timezone:'Asia/Shanghai',daily:{cron:'17 0 * * *',time:'08:17'},rankings:{cron:'47 0 * * 1',weekday:'Monday',time:'08:47',intervalDays:7}},lastAttemptAt:new Date().toISOString(),providers:reports,warning:anySuccess?null:'本轮来源不可用，保留上次已发布目录。'}));
 console.log(JSON.stringify({ok:anySuccess,total:catalog.items.length,providers:reports}));
