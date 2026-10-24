@@ -1,7 +1,7 @@
 // Static-hosted API compatibility. Only public metadata is served; no proxy or secrets.
 (() => {
   const originalFetch=window.fetch.bind(window),base=new URL('./',location.href);
-  const providerNames={jy:'金鹰资源',md:'魔都动漫',zy360:'360资源',lz:'量子资源',bf:'暴风资源'};
+  const providerNames={yh:'樱花动漫 · yhdmtv.cc',sn:'索尼资源',hh:'豪华资源',jy:'金鹰资源',md:'魔都动漫',zy360:'360资源',lz:'量子资源',bf:'暴风资源'};
   let cachedCatalog;
   const file=async name=>{const url=new URL(name,base),detail=name.startsWith('details/');let fallback=null;if(detail&&'caches'in window){try{const hit=await caches.match(url);if(hit){fallback=await hit.json();if(Date.now()-Number(hit.headers.get('X-Directory-Saved'))<3600000)return fallback;}}catch{}}let r;try{r=await originalFetch(url,{signal:AbortSignal.timeout(name==='vod-catalog.json'?45000:6500),cache:'no-store'});}catch(error){if(fallback)return fallback;throw error;}if(!r.ok){if(fallback)return fallback;throw Error('资料尚未发布');}const data=await r.json();if(detail&&'caches'in window){try{const cache=await caches.open('ciyuan-directory-v1');await cache.put(url,new Response(JSON.stringify(data),{headers:{'Content-Type':'application/json','X-Directory-Saved':String(Date.now())}}));const keys=await cache.keys();for(const old of keys.slice(0,Math.max(0,keys.length-40)))await cache.delete(old);}catch{}}return data;};
   const catalog=()=>cachedCatalog||(cachedCatalog=file('vod-catalog.json'));

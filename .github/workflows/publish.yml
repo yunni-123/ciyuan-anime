@@ -33,6 +33,11 @@ jobs:
       - name: Refresh Japanese anime metadata daily
         if: github.event_name != 'push' && github.event.schedule != '47 0 * * 1' && !inputs.rankings_only
         run: node tools/sync-metadata.mjs docs
+      - name: Refresh imported Japanese anime from requested Sakura site
+        if: github.event_name != 'push' && github.event.schedule != '47 0 * * 1' && !inputs.rankings_only
+        run: |
+          node tools/yhdm-source.mjs docs
+          node tools/check-yhdm-manifests.mjs docs
       - name: Check production announcements daily
         if: github.event_name != 'push' && github.event.schedule != '47 0 * * 1' && !inputs.rankings_only
         run: node tools/sync-announcements.mjs docs
@@ -51,7 +56,7 @@ jobs:
       - name: Build lightweight data for Cloudflare same-origin delivery
         run: node tools/build-cloudflare-data.mjs docs cloudflare-data
       - name: Validate catalogs and update pipeline
-        run: node --test tools/update-pipeline.test.mjs
+        run: node --test tools/update-pipeline.test.mjs tools/yhdm-source.test.mjs
       - name: Save data for Cloudflare and GitHub Pages
         run: |
           git config user.name 'github-actions[bot]'
