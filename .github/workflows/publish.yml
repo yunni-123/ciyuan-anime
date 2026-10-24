@@ -51,6 +51,7 @@ jobs:
         if: github.event_name != 'push'
         run: node tools/complete-resources.mjs reconcile docs
       - name: Record actual update times and schedule
+        if: github.event_name != 'push'
         env:
           RANKING_OUTCOME: ${{ steps.rankings.outcome }}
         run: node tools/update-status.mjs docs
