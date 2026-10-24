@@ -1,16 +1,16 @@
-name: Publish anime site and update metadata
+name: Daily anime data and weekly Top50
 on:
   push:
     branches: [main]
   workflow_dispatch:
     inputs:
       rankings_only:
-        description: Refresh only yearly rankings
+        description: Refresh rankings only (otherwise refresh data and rankings)
         type: boolean
         default: false
   schedule:
-    - cron: '17 0,6,12,18 * * *'
-    - cron: '47 * * * *'
+    - cron: '17 0 * * *'
+    - cron: '47 0 * * 1'
 permissions:
   contents: write
   pages: write
@@ -21,32 +21,42 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 20
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v6
-      - name: Refresh public metadata
-        if: github.event_name != 'push' && github.event.schedule != '47 * * * *' && !inputs.rankings_only
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Refresh Japanese anime metadata daily
+        if: github.event_name != 'push' && github.event.schedule != '47 0 * * 1' && !inputs.rankings_only
         run: node tools/sync-metadata.mjs docs
-      - name: Check official production announcements
-        if: github.event_name != 'push' && github.event.schedule != '47 * * * *' && !inputs.rankings_only
+      - name: Check production announcements daily
+        if: github.event_name != 'push' && github.event.schedule != '47 0 * * 1' && !inputs.rankings_only
         run: node tools/sync-announcements.mjs docs
-      - name: Refresh yearly Top 50 (hourly ranking)
-        if: github.event_name != 'push'
+      - name: Refresh annual Top50 weekly (preserve previous snapshot on failure)
+        id: rankings
+        if: github.event_name == 'workflow_dispatch' || github.event.schedule == '47 0 * * 1'
+        continue-on-error: true
         run: node tools/fetch-annual-top50.mjs docs
       - name: Reconcile series and yearly coverage
         if: github.event_name != 'push'
         run: node tools/complete-resources.mjs reconcile docs
-      - name: Embed episode directories into catalog
-        run: node tools/embed-directories.mjs docs
-      - name: Save updated metadata
-        if: github.event_name != 'push'
+      - name: Record actual update times and schedule
+        env:
+          RANKING_OUTCOME: ${{ steps.rankings.outcome }}
+        run: node tools/update-status.mjs docs
+      - name: Build lightweight data for Cloudflare same-origin delivery
+        run: node tools/build-cloudflare-data.mjs docs cloudflare-data
+      - name: Validate catalogs and update pipeline
+        run: node --test tools/update-pipeline.test.mjs
+      - name: Save data for Cloudflare and GitHub Pages
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/vod-catalog.json docs/catalog.json docs/update-status.json docs/details docs/announcements.json docs/annual-top50.json docs/resource-coverage.json docs/resource-summary.json docs/completion-last-run.json docs/text-only-catalog.json
+          git add docs cloudflare-data
           if ! git diff --cached --quiet; then
             git commit -m 'Update published anime metadata'
             git push origin HEAD:main
@@ -56,6 +66,6 @@ jobs:
         with:
           path: docs
           retention-days: 1
-      - name: Deploy free Pages site
+      - name: Deploy free GitHub Pages fallback
         id: deployment
         uses: actions/deploy-pages@v4

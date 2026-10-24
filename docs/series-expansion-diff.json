@@ -1,0 +1,300 @@
+{
+  "checkedAt": "2026-10-22T15:51:27.388Z",
+  "before": {
+    "missing": 422,
+    "partial": 12
+  },
+  "after": {
+    "missing": 381,
+    "partial": 15
+  },
+  "resolved": [
+    {
+      "id": 302572,
+      "name": "Fate/Grand Order -终局特异点 冠位时间神殿所罗门-",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 36379,
+      "name": "Fate/Zero Remix",
+      "status": "indexed",
+      "expected": 2,
+      "indexed": 2
+    },
+    {
+      "id": 324249,
+      "name": "Fate/Grand Carnival",
+      "status": "partial",
+      "expected": 4,
+      "indexed": 2
+    },
+    {
+      "id": 231888,
+      "name": "Fate/Grand Order×冰室之天地～最强伟人7人篇～",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 255525,
+      "name": "剧场版 Fate/Grand Order 神圣圆桌领域卡美洛 前篇 漂泊的银之臂",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 255530,
+      "name": "剧场版 Fate/Grand Order 神圣圆桌领域卡美洛 后篇 圣骑士银之臂",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 297261,
+      "name": "高达创形者 再起 2nd Season",
+      "status": "indexed",
+      "expected": 13,
+      "indexed": 13
+    },
+    {
+      "id": 434818,
+      "name": "高达创战元宇宙",
+      "status": "indexed",
+      "expected": 3,
+      "indexed": 3
+    },
+    {
+      "id": 27832,
+      "name": "机动战士高达SEED HD重制版",
+      "status": "indexed",
+      "expected": 48,
+      "indexed": 48
+    },
+    {
+      "id": 391706,
+      "name": "机动战士高达 水星的魔女 PROLOGUE",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 54277,
+      "name": "机动战士高达SEED DESTINY HD重制版",
+      "status": "indexed",
+      "expected": 50,
+      "indexed": 50
+    },
+    {
+      "id": 267412,
+      "name": "机动战士高达 THE ORIGIN 前夜 红色彗星",
+      "status": "indexed",
+      "expected": 13,
+      "indexed": 13
+    },
+    {
+      "id": 18779,
+      "name": "机动战士Z高达Ⅲ A New Translation -星辰的鼓动是爱-",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 226561,
+      "name": "机动战士高达 暮光的阿克西斯 赤红残影",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 25363,
+      "name": "魔法禁书目录炭",
+      "status": "partial",
+      "expected": 7,
+      "indexed": 5
+    },
+    {
+      "id": 310194,
+      "name": "Re：从零开始的休息时间2",
+      "status": "indexed",
+      "expected": 25,
+      "indexed": 25
+    },
+    {
+      "id": 315779,
+      "name": "夏目友人帐 唤石者与怪异的访客",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 891,
+      "name": "续 夏目友人帐",
+      "status": "indexed",
+      "expected": 13,
+      "indexed": 13
+    },
+    {
+      "id": 227392,
+      "name": "剧场版 夏目友人帐 ～缘结空蝉～",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 86445,
+      "name": "天降之物Final 永远的我的鸟笼",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 876,
+      "name": "CLANNAD 〜AFTER STORY〜",
+      "status": "indexed",
+      "expected": 24,
+      "indexed": 25
+    },
+    {
+      "id": 51,
+      "name": "CLANNAD",
+      "status": "indexed",
+      "expected": 23,
+      "indexed": 24
+    },
+    {
+      "id": 37873,
+      "name": "CLANNAD 另一个世界 智代篇",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 37874,
+      "name": "CLANNAD ～AFTER STORY～另一个世界 杏篇",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 3686,
+      "name": "剧场版 CLANNAD",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 326874,
+      "name": "在地下城寻求邂逅是否搞错了什么 第四季 新章 迷宫篇",
+      "status": "indexed",
+      "expected": 11,
+      "indexed": 11
+    },
+    {
+      "id": 172155,
+      "name": "在地下城寻求邂逅是否搞错了什么 外传 剑姬神圣谭",
+      "status": "partial",
+      "expected": 12,
+      "indexed": 11
+    },
+    {
+      "id": 238005,
+      "name": "剧场版 在地下城寻求邂逅是否搞错了什么 -俄里翁之矢-",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 374961,
+      "name": "拯救拉米莉丝",
+      "status": "indexed",
+      "expected": 2,
+      "indexed": 2
+    },
+    {
+      "id": 422759,
+      "name": "鬼灭之刃 游郭篇 特別编集版",
+      "status": "indexed",
+      "expected": 2,
+      "indexed": 2
+    },
+    {
+      "id": 322102,
+      "name": "鬼灭之刃 柱合会议・蝶屋敷篇",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 469668,
+      "name": "鬼灭之刃 绊之奇迹，然后与柱训练",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 271652,
+      "name": "剧场版 Free!-the Final Stroke- 前篇",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 334203,
+      "name": "剧场版 Free!-the Final Stroke- 后篇",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 211616,
+      "name": "剧场版 Free!-Timeless Medley- 绊",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 2
+    },
+    {
+      "id": 129246,
+      "name": "电影 High☆Speed! -Free! Starting Days-",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 228820,
+      "name": "Free!-Dive to the Future-",
+      "status": "indexed",
+      "expected": 12,
+      "indexed": 12
+    },
+    {
+      "id": 578766,
+      "name": "新剧场版 银魂 -吉原大炎上-",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 30302,
+      "name": ".hack//世界的彼方",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 18616,
+      "name": "犬夜叉 天下霸道之剑",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    },
+    {
+      "id": 19393,
+      "name": "犬夜叉 镜中的梦幻城",
+      "status": "indexed",
+      "expected": 1,
+      "indexed": 1
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "checkedAt": "2026-10-22T15:46:26.790Z",
+  "baseline": {
+    "items": 4779,
+    "refs": 9251
+  },
+  "catalog": 7951,
+  "added": 3172,
+  "refs": 17435,
+  "received": 8184,
+  "categories": [
+    {
+      "provider": "sn",
+      "category": 30,
+      "pages": 229,
+      "total": 4567
+    },
+    {
+      "provider": "sn",
+      "category": 39,
+      "pages": 72,
+      "total": 1424
+    },
+    {
+      "provider": "hh",
+      "category": 25,
+      "pages": 128,
+      "total": 2552
+    },
+    {
+      "provider": "hh",
+      "category": 23,
+      "pages": 106,
+      "total": 2102
+    }
+  ],
+  "errors": [],
+  "videosDownloaded": false,
+  "playbackVerified": false
+}

@@ -1,0 +1,4 @@
+import fs from 'node:fs/promises';import path from 'node:path';
+const root=path.resolve(process.argv[2]||'docs'),read=async n=>JSON.parse(await fs.readFile(path.join(root,n),'utf8'));
+const [old,catalog,annual]=await Promise.all(['update-status.json','vod-catalog.json','annual-top50.json'].map(read));
+await fs.writeFile(path.join(root,'update-status.json'),JSON.stringify({...old,updatedAt:catalog.fetchedAt,total:catalog.items.length,rankingsUpdatedAt:annual.fetchedAt,lastPublishPreparedAt:new Date().toISOString(),schedule:{enabled:true,mode:'github-actions',timezone:'Asia/Shanghai',daily:{cron:'17 0 * * *',time:'08:17'},rankings:{cron:'47 0 * * 1',weekday:'Monday',time:'08:47',intervalDays:7}},lastRankingAttempt:process.env.RANKING_OUTCOME||'not-requested',note:'作品资料每天更新，2010—2026 年年度 Top50 每周一更新。计划可能排队延迟；来源失败保留旧资料。'}));

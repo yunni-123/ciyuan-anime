@@ -9,13 +9,13 @@ const catalogPath=path.join(root,'vod-catalog.json');
 const catalog=JSON.parse(await fs.readFile(catalogPath,'utf8'));
 const merged=new Map(catalog.items.map(s=>[identity(s),s])),reports={};
 let anySuccess=false;
-async function get(url){let last;for(let attempt=0;attempt<2;attempt++){try{const r=await fetch(url,{headers:{'User-Agent':'CiyuanMetadata/1.0','Accept':'application/json'},signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('HTTP '+r.status);const text=await r.text();if(text.length>5000000)throw Error('Metadata exceeds size limit');return JSON.parse(text);}catch(e){last=e;}}throw last;}
-for(const [id,p]of Object.entries(providers)) {
+async function get(url){let last;for(let attempt=0;attempt<2;attempt++){try{const r=await fetch(url,{headers:{'User-Agent':'CiyuanMetadata/1.0','Accept':'application/json'},signal:AbortSignal.timeout(10000)});if(!r.ok)throw Error('HTTP '+r.status);const text=await r.text();if(text.length>5000000)throw Error('Metadata exceeds size limit');return JSON.parse(text);}catch(e){last=e;}}throw last;}
+await Promise.all(Object.entries(providers).map(async ([id,p]) => {
   let pages=0,received=0,failed=0;
   for(let page=1;page<=4;page++) {
     const u=new URL(p.url);u.searchParams.set('ac','detail');u.searchParams.set('t',p.type);u.searchParams.set('pg',page);
     try {
-      const data=await get(u);pages++;anySuccess=true;
+      const data=await get(u);if(!Array.isArray(data.list))throw Error('Invalid provider response');pages++;anySuccess=true;
       for(const x of data.list||[]) {
         if(!/日本/.test(x.vod_area)||!/动漫|动画/.test(x.type_name)||/解说|成人|伦理|里番/.test(x.type_name)||/枫与铃|楓與鈴|Kaede to Suzu|拔作岛|拔作島|ぬきたし|Nukitashi/i.test(x.vod_name))continue;
         const year=Number(String(x.vod_year).match(/\d{4}/)?.[0]);if(!year||year>new Date().getUTCFullYear()+1||!/^\d{1,12}$/.test(String(x.vod_id)))continue;
@@ -32,7 +32,7 @@ for(const [id,p]of Object.entries(providers)) {
     } catch {failed++;}
   }
   reports[id]={sourceName:p.name,pages,received,failedPages:failed,checkedAt:new Date().toISOString()};
-}
+}));
 let status={};try{status=JSON.parse(await fs.readFile(path.join(root,'update-status.json'),'utf8'));}catch{}
 if(anySuccess){catalog.items=[...merged.values()].sort((a,b)=>(b.date||'').localeCompare(a.date||''));catalog.fetchedAt=new Date().toISOString();await fs.writeFile(catalogPath,JSON.stringify(catalog));}
 await fs.writeFile(path.join(root,'update-status.json'),JSON.stringify({...status,updatedAt:anySuccess?catalog.fetchedAt:status.updatedAt,total:catalog.items.length,storageReady:true,schedule:{enabled:true,mode:'github-actions',timezone:'Asia/Shanghai',hours:[2,8,14,20]},lastAttemptAt:new Date().toISOString(),providers:reports,warning:anySuccess?null:'本轮来源不可用，保留上次已发布目录。'}));
