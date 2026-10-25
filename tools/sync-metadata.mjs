@@ -34,6 +34,7 @@ await Promise.all(Object.entries(providers).map(async ([id,p]) => {
   reports[id]={sourceName:p.name,pages,received,failedPages:failed,checkedAt:new Date().toISOString()};
 }));
 let status={};try{status=JSON.parse(await fs.readFile(path.join(root,'update-status.json'),'utf8'));}catch{}
+for(const [id,report] of Object.entries(reports)){const previous=status.providers?.[id];report.state=report.pages?(report.failedPages?'partial':'success'):'failed';report.retainedOldData=report.failedPages>0;report.lastSuccessAt=report.pages?report.checkedAt:previous?.lastSuccessAt||(previous?.pages?previous.checkedAt:null);report.lastFullSuccessAt=report.state==='success'?report.checkedAt:previous?.lastFullSuccessAt||((previous?.pages&&!previous.failedPages)?previous.checkedAt:null);}
 if(anySuccess){catalog.items=[...merged.values()].sort((a,b)=>(b.date||'').localeCompare(a.date||''));catalog.fetchedAt=new Date().toISOString();await fs.writeFile(catalogPath,JSON.stringify(catalog));}
 await fs.writeFile(path.join(root,'update-status.json'),JSON.stringify({...status,updatedAt:anySuccess?catalog.fetchedAt:status.updatedAt,total:catalog.items.length,storageReady:true,schedule:{enabled:true,mode:'github-actions',timezone:'Asia/Shanghai',daily:{cron:'17 0 * * *',time:'08:17'},rankings:{cron:'47 0 * * 1',weekday:'Monday',time:'08:47',intervalDays:7}},lastAttemptAt:new Date().toISOString(),providers:reports,warning:anySuccess?null:'本轮来源不可用，保留上次已发布目录。'}));
 console.log(JSON.stringify({ok:anySuccess,total:catalog.items.length,providers:reports}));

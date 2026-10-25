@@ -14,12 +14,12 @@ function monitorPlayback(video,instance,ticket,url){
   clearPlayerHealth();
   const state=playerHealth={network:0,media:0,started:Date.now(),lastProgress:Date.now(),lastTime:video.currentTime,hasPlayed:false,lowered:false,retry:null,timer:null};
   const current=()=>playerHealth===state&&ticket===mediaTicket;
-  function fail(message){if(!current())return;if(tryPlaybackAlternative(message))return;clearPlayerHealth();if(hls){hls.destroy();hls=null;}video.pause();$('#player-status').textContent=message+'；自动恢复已停止，请重试或手动换源。';$('#retry-playback').hidden=false;}
+  function fail(message){if(!current())return;globalThis.CiyuanExperienceUI?.recordFailure();if(tryPlaybackAlternative(message))return;clearPlayerHealth();if(hls){hls.destroy();hls=null;}video.pause();$('#player-status').textContent=message+'；自动恢复已停止，请重试或手动换源。';$('#retry-playback').hidden=false;}
   function retry(){if(!current()||state.retry)return;if(state.network>=2){fail('该线路持续不可用');return;}state.network++;state.lastProgress=Date.now();$('#player-status').textContent=`网络波动，正在重连（${state.network}/2）…`;state.retry=setTimeout(()=>{state.retry=null;if(!current()||!instance||hls!==instance)return;if(!instance.levels.length)instance.loadSource(url);else instance.startLoad();},state.network*1200);}
   state.handleError=data=>{
     if(!current())return;
     const code=Number(data.response?.code||data.networkDetails?.status);
-    if([401,403,404,410].includes(code)){fail(`视频源返回 ${code}，当前地址失效或拒绝访问`);return;}
+    if([401,403,404,410].includes(code)&&!/subtitle/i.test(data.details||'')){fail(`视频源返回 ${code}，当前地址失效或拒绝访问`);return;}
     if(!data.fatal)return;
     if(data.type===Hls.ErrorTypes.NETWORK_ERROR)retry();
     else if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&state.media++<1){continueAt=video.currentTime;$('#player-status').textContent='正在恢复视频解码…';instance.recoverMediaError();}
@@ -34,7 +34,7 @@ function monitorPlayback(video,instance,ticket,url){
     if(video.paused||video.seeking){state.lastProgress=Date.now();state.lastTime=video.currentTime;return;}
     if(!navigator.onLine){$('#player-status').textContent='网络已断开，恢复联网后可重试。';state.lastProgress=Date.now();return;}
     if(video.currentTime>state.lastTime+0.15){state.lastTime=video.currentTime;state.lastProgress=Date.now();return;}
-    const stalled=Date.now()-state.lastProgress;
+    const stalled=Date.now()-state.lastProgress;if(stalled>7000&&!state.slowRecorded){state.slowRecorded=true;globalThis.CiyuanExperienceUI?.noteSlow();}
     if(stalled>7000&&!state.lowered&&instance&&instance.autoLevelEnabled){state.lowered=true;if(instance.levels.length>1){instance.nextAutoLevel=Math.max(0,instance.currentLevel-1);$('#player-status').textContent='网络较慢，正在降低自动清晰度并补充缓冲…';}else $('#player-status').textContent='当前来源只有一个清晰度，正在补充缓冲…';}
     if(stalled>18000){if(instance)retry();else fail('视频源长时间没有返回画面');}
   },2000);
@@ -49,9 +49,9 @@ function tryPlaybackAlternative(reason){
     const key=si+':'+gi;if(si===previous.sourceIndex&&gi===previous.group||playbackAlternatives.visited.has(key))return;
     let ep=number===undefined?g.episodes.findIndex(e=>e.name===currentName):g.episodes.findIndex(e=>Number(e.name.match(/\d+/)?.[0])===Number(number));
     if(ep<0&&g.episodes.length===1&&previous.subject.playGroups[previous.group].episodes.length===1)ep=0;
-    if(ep>=0)candidates.push({si,gi,ep,key});
+    if(g.episodes.length===1&&previous.subject.playGroups[previous.group].episodes.length>1)return;if(ep>=0)candidates.push({si,gi,ep,key,score:globalThis.CiyuanExperienceUI?.scoreLine(s,g)||0});
   }));
-  const next=candidates[0];if(!next)return false;
+  const next=candidates.filter(c=>c.score>-100).sort((a,b)=>b.score-a.score)[0];if(!next)return false;
   const session=playbackAlternatives;session.visited.add(previous.sourceIndex+':'+previous.group);session.visited.add(next.key);session.switches++;
   chooseEpisode(previous.sources,next.si,next.gi,next.ep);playbackAlternatives=session;continueAt=position;
   $('#player-status').textContent=reason+'，正在切换同一集的其他线路…';
