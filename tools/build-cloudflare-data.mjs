@@ -1,14 +1,14 @@
 import search from './search-core.cjs';
 import experience from './experience-core.cjs';
 import fs from 'node:fs/promises';import path from 'node:path';
-export function compact(s){const result={};for(const k of ['id','type','name','name_cn','date','year','region','area','platform','provider','providerName','vodId','remarks','episodeCount','eps','classic','classicRank','franchise','fanWork','alternatives','localImage','collection','rating','coverAlternatives','directoryState','identity'])if(s[k]!==undefined)result[k]=s[k];const themes=search.themes(s);if(themes.length)result.searchThemes=themes;if(s.aliases?.length)result.aliases=s.aliases.slice(0,8).map(x=>String(x).slice(0,100));result.images={common:s.images?.common||s.images?.medium||s.images?.large||''};result.tags=(s.tags||[]).slice(0,8).map(t=>({name:t.name}));if(s.rating)result.rating={score:s.rating.score};if(s.collection)result.collection={total:s.collection.total,doing:s.collection.doing};return result;}
+export function compact(s){const result={};for(const k of ['id','type','name','name_cn','date','year','region','area','platform','provider','providerName','vodId','remarks','episodeCount','eps','classic','classicRank','franchise','fanWork','alternatives','localImage','collection','rating','coverAlternatives','directoryState','identity','discoveryFormat','discoveryQuarter'])if(s[k]!==undefined)result[k]=s[k];const themes=search.themes(s);if(themes.length)result.searchThemes=themes;if(s.aliases?.length)result.aliases=s.aliases.slice(0,8).map(x=>String(x).slice(0,100));result.images={common:s.images?.common||s.images?.medium||s.images?.large||''};result.tags=(s.tags||[]).slice(0,8).map(t=>({name:t.name}));if(s.rating)result.rating={score:s.rating.score};if(s.collection)result.collection={total:s.collection.total,doing:s.collection.doing};return result;}
 export async function coverFallbacks(root){
  const map=new Map();try{
   const bibliography=JSON.parse(await fs.readFile(path.join(root,'catalog.json'),'utf8')),
    coverage=JSON.parse(await fs.readFile(path.join(root,'resource-coverage.json'),'utf8')),
    images=new Map(bibliography.items.map(s=>[s.id,s.images?.common||s.images?.medium||s.images?.large]));
   const entries=[...(coverage.series||[]).flatMap(s=>s.entries||[]),...(coverage.years||[]).flatMap(y=>y.entries||y.items||[])];
-  for(const e of entries){const image=images.get(e.id);if(image)for(const id of e.resourceIds||[])map.set(id,image);}
+  for(const e of entries){const image=images.get(e.id);if(image)for(const id of e.resourceIds||e.coverage?.resourceIds||[])map.set(id,image);}
  }catch{}return map;
 }
 export function homeCatalog(data){const current=new Date().getUTCFullYear(),items=data.items.filter(s=>s.type===2&&s.region!=='cn'&&Number(s.year||s.date?.slice(0,4))>=current-3&&Number(s.year||s.date?.slice(0,4))<=current).slice(0,72);return{fetchedAt:data.fetchedAt,total:data.items.length,partial:true,items:items.length?items:data.items.slice(0,72)};}

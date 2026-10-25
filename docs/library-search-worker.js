@@ -1,7 +1,7 @@
-importScripts('architecture-core.js?v=arch1','search-core.js?v=arch1','library-store.js?v=arch1');
+importScripts('discovery-core.js?v=discover1','architecture-core.js?v=discover1','search-core.js?v=arch1','library-store.js?v=arch1');
 let rows=[],byId=new Map(),byRef=new Map();
 function query(q){const pool=q.view==='favorites'?(q.ids||[]).map(id=>{const row=byId.get(id)||byRef.get(id)||(q.extras||[]).find(s=>String(s.id)===id);return row?{...row,id,sourceIds:row.sourceIds||[],searchThemes:row.searchThemes||[],tags:row.tags||[],rating:row.rating||{score:0},collection:row.collection||{total:0},date:row.date||'',year:row.year||row.date?.slice(0,4)||''}:null;}).filter(Boolean):rows;let items=pool.filter(s=>s.type===(q.type||2)&&(!q.ids||q.ids.includes(String(s.id)))&&(!q.available||s.directoryState?.available)&&(!q.provider||q.provider==='all'||s.sourceIds.includes(q.provider)));
- const yr=q.year||'';items=items.filter(s=>!yr||yr==='recent'&&Number(s.year)>=2023&&Number(s.year)<=2026||yr==='classic'&&s.classic||yr==='before2015'&&Number(s.year)<2015||s.year===yr);
+ items=items.filter(s=>CiyuanDiscovery.filter(s,q));const yr=q.year||'';items=items.filter(s=>!yr||yr==='recent'&&Number(s.year)>=2023&&Number(s.year)<=2026||yr==='classic'&&s.classic||yr==='before2015'&&Number(s.year)<2015||s.year===yr);
  if(q.tag){const themes={奇幻:['奇幻','冒险'],热血:['战斗','热血','运动'],治愈:['治愈','日常'],日常:['日常','搞笑','校园'],悬疑:['悬疑','科幻'],恋爱:['恋爱']};items=items.filter(s=>(themes[q.tag]||[q.tag]).some(t=>s.searchThemes.includes(t)||s.tags.some(x=>x.name.includes(t))));}
  if(q.keyword)items=items.filter(s=>CiyuanSearch.score(s,q.keyword)>0);
  items.sort((a,b)=>(q.keyword?CiyuanSearch.score(b,q.keyword)-CiyuanSearch.score(a,q.keyword):0)||(yr==='classic'?(a.classicRank||999)-(b.classicRank||999):0)||(q.sort==='rating'?b.rating.score-a.rating.score:q.sort==='newest'?b.date.localeCompare(a.date):Number(!!b.provider)-Number(!!a.provider)||b.collection.total-a.collection.total));
