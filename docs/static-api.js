@@ -4,7 +4,7 @@
   const providerNames={yh:'樱花动漫 · yhdmtv.cc',sn:'索尼资源',hh:'豪华资源',jy:'金鹰资源',md:'魔都动漫',zy360:'360资源',lz:'量子资源',bf:'暴风资源'};
   let cachedCatalog;
   const file=async name=>{const url=new URL(name,base),detail=name.startsWith('details/');let fallback=null;if(detail&&'caches'in window){try{const hit=await caches.match(url);if(hit){fallback=await hit.json();if(Date.now()-Number(hit.headers.get('X-Directory-Saved'))<3600000)return fallback;}}catch{}}let r;try{r=await originalFetch(url,{signal:AbortSignal.timeout(name==='vod-catalog.json'?45000:6500),cache:'no-store'});}catch(error){if(fallback)return fallback;throw error;}if(!r.ok){if(fallback)return fallback;throw Error('资料尚未发布');}const data=await r.json();if(detail&&'caches'in window){try{const cache=await caches.open('ciyuan-directory-v1');await cache.put(url,new Response(JSON.stringify(data),{headers:{'Content-Type':'application/json','X-Directory-Saved':String(Date.now())}}));const keys=await cache.keys();for(const old of keys.slice(0,Math.max(0,keys.length-40)))await cache.delete(old);}catch{}}return data;};
-  const catalog=()=>cachedCatalog||(cachedCatalog=file('vod-catalog.json'));
+  const catalog=()=>cachedCatalog||(cachedCatalog=file('vod-catalog.json').catch(error=>{cachedCatalog=null;throw error;}));
   const json=(body,status=200)=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'}});
   async function api(url,method) {
     if(method!=='GET'&&method!=='HEAD')return json({error:'静态网站不允许访客修改云端资源'},403);
@@ -16,7 +16,8 @@
     if(u.pathname==='/api/vod') {
       const provider=u.searchParams.get('source')||'lz',id=u.searchParams.get('id'),q=(u.searchParams.get('q')||'').trim().toLowerCase(),page=Number(u.searchParams.get('page')||1),region=u.searchParams.get('region')||'jp';
       if(!providerNames[provider]||!Number.isInteger(page)||page<1||page>500||q.length>100||id&&!/^\d{1,12}$/.test(id)||!['jp','cn','all'].includes(region))return json({error:'参数无效'},400);
-      if(id){const source=(await catalog()).items.flatMap(s=>(s.inlineSources||[]).map(x=>({...x,name:s.name,name_cn:s.name_cn}))).find(s=>s.provider===provider&&s.vodId===id);if(source)return json({provider:providerNames[provider],items:[{...source,id:'vod_'+provider+'_'+id,providerName:providerNames[provider]}],mode:'embedded'});try{return json({provider:providerNames[provider],items:[await file(`details/${provider}_${id}.json`)],mode:'published'});}catch{return json({provider:providerNames[provider],items:[],mode:'published'});}}
+      // Detail requests must not wait for the multi-megabyte search catalog.
+      if(id){try{return json({provider:providerNames[provider],items:[await file(`details/${provider}_${id}.json`)],mode:'published'});}catch{return json({provider:providerNames[provider],items:[],mode:'published'});}}
       const data=await catalog(),map=new Map();
       for(const s of data.items)for(const variant of [{...s},...(s.alternatives||[]).map(a=>({...s,...a,id:`vod_${a.provider}_${a.vodId}`,providerName:providerNames[a.provider]}))]) {
         if(variant.provider===provider&&(region==='all'||variant.region===region)&&(!q||(variant.name_cn+' '+variant.name).toLowerCase().includes(q)))map.set(variant.provider+'_'+variant.vodId,variant);
@@ -31,7 +32,7 @@
   }
   window.fetch=async(input,options={})=>{
     const u=new URL(typeof input==='string'||input instanceof URL?input:input.url,location.href);
-    if(u.origin===location.origin&&u.pathname.startsWith('/api/'))return api(u.href,(options.method||input?.method||'GET').toUpperCase());
+    if(u.origin==='https://api.bgm.tv'&&/^\/v0\/subjects\/\d+$/.test(u.pathname)){try{return json(await file('subject-details/'+u.pathname.split('/').pop()+'.json'));}catch{return json({error:'本测试版未收录此资料'},404);}}if(u.origin===location.origin&&u.pathname.startsWith('/api/'))return api(u.href,(options.method||input?.method||'GET').toUpperCase());
     return originalFetch(input,options);
   };
 })();

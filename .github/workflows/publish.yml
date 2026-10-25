@@ -58,7 +58,7 @@ jobs:
       - name: Build lightweight data for Cloudflare same-origin delivery
         run: node tools/build-cloudflare-data.mjs docs cloudflare-data
       - name: Validate catalogs and update pipeline
-        run: node --test tools/update-pipeline.test.mjs tools/yhdm-source.test.mjs
+        run: node --test tools/update-pipeline.test.mjs tools/yhdm-source.test.mjs tools/loading-recovery.test.mjs
       - name: Save data for Cloudflare and GitHub Pages
         run: |
           git config user.name 'github-actions[bot]'

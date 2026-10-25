@@ -12,7 +12,7 @@ function persist(){try{localStorage.setItem('ciyuan-favorites-v1',JSON.stringify
 function score(s){return Number(s.rating?.score??s.score??0);}
 function title(s){return s.name_cn||s.name||'未命名作品';}
 function tags(s){return(s.tags||[]).map(x=>x.name).filter(Boolean);}
-function image(s){return s.localImage||s.images?.common||s.images?.medium||s.images?.large||'icon.svg';}
+function image(s){return window.CiyuanCovers?window.CiyuanCovers.image(s):(s.localImage||s.images?.common||s.images?.medium||s.images?.large||'icon.svg');}
 function normalize(s){if(!s.images)s.images={};s.type=s.type||2;return s;}
 function entry(id){return catalog.find(s=>String(s.id)===String(id))||results?.find(s=>String(s.id)===String(id))||Object.values(favorites).find(f=>String(f.subject?.id)===String(id))?.subject;}
 function toggleFavorite(id){const s=entry(id);if(!s)return;if(favorites[id]){delete favorites[id];toast('已移出追番');}else{favorites[id]={subject:s,status:'想看',progress:0,savedAt:new Date().toISOString()};toast('已加入追番 · 想看');}persist();render();if(String(currentDetail?.id)===String(id))renderDetail(currentDetail);}

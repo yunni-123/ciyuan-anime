@@ -16,7 +16,7 @@ GitHub 计划任务可能排队延迟，不保证准点。年度榜必须全部 
 
 部分 CDN 拦截 GitHub 等机房 IP。出现受限状态（包括机房侧的 401/403/404）时，不把该检查位置的拒绝视为全球失效：`yhdm-last-verified.json` 保存此前实际通过首集清单检查的目录，优先保留该目录和原验证时间，并记录本次受限状态。首集 URL 未改变时仍接收同一公开列表新增的剧集，避免冻结更新；首集 URL 改变且未验证时回退原目录。没有任何既往有效证据的拒绝线路不会被当作已验证线路加入。网页不绕过来源访问控制。
 
-公开资料保存在 docs/；轻量初始目录及按需作品资料保存在 cloudflare-data/。两者在同一个提交内发布。Cloudflare Pages 的 `_worker.js` 只读取此公开仓库的固定 JSON 路径，不接收任意上游地址，不代理或保存视频，不携带访问者凭据。
+公开资料保存在 docs/；轻量初始目录及按需作品资料保存在 cloudflare-data/。两者在同一个提交内发布。Cloudflare Pages 的 `_worker.js` 的资料接口只读取此公开仓库的固定 JSON 路径；另有严格限定封面图片域名及格式的图片缓存接口，不代理或保存视频，不携带访问者凭据。
 
 浏览器只请求 Cloudflare 同域数据，GitHub 的取数在 Cloudflare 上执行。边缘与上游缓存约 5 分钟，更新传播可能延后数分钟；上游暂不可达时回退到最后部署的静态快照，显示原始时间，不伪造更新成功。
 
@@ -29,3 +29,5 @@ GitHub 计划任务可能排队延迟，不保证准点。年度榜必须全部 
 构建 Cloudflare 时设置 CIYUAN_AUTOMATION_ENABLED=true，表示仓库定时更新已配置。该变量没有凭据内容。Cloudflare 仍使用现有免费方案，没有启用付费套餐；Functions 有免费额度限制。静态页面和视频不会通过该数据函数。
 
 检查：`node --test tools/update-pipeline.test.mjs`。状态：`/preview/update-status.json`，云端运行记录：https://github.com/yunni-123/ciyuan-anime/actions/workflows/publish.yml。
+
+2026-10-25 修复详情目录被完整搜索目录阻塞的问题。封面由同域 `/preview/cover` 缓存最多七天，只允许列出的 HTTPS 图片域名、JPEG/PNG/WebP、无重定向和凭据、每张不超过 2 MiB；不支持任意地址或视频转发。已按覆盖清单精确匹配的作品带备用 Bangumi 封面，图片错误或可见区域等待超时后尝试备用，最后才用占位图。该接口使用免费 Functions 配额，不承诺大陆线路可达。首次视频加载在尚未播放的暂停状态也受 16 秒检测限制，明确 HTTP 拒绝立即停止重试；保留原画质偏好。测试包括 `tools/loading-recovery.test.mjs`。
