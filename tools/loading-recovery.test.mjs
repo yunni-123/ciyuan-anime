@@ -20,11 +20,12 @@ test('cover relay permits fixed image hosts only, never video or arbitrary desti
 });
 function edge(fetcher){const entries=new Map(),pending=[];return{env:{ASSETS:{fetch:()=>new Response(null,{status:404})}},ctx:{waitUntil:p=>pending.push(p)},deps:{fetch:fetcher,cache:{match:async k=>entries.get(k.url)?.clone(),put:async(k,v)=>{entries.set(k.url,v.clone());}}},pending};}
 test('cover cache isolates visitor credentials and accepts only actual small images',async()=>{
- let calls=0;const r=edge(async(url,init)=>{calls++;assert.equal(init.redirect,'error');assert(!init.headers.Authorization);assert(!init.headers.Cookie);return new Response(new Uint8Array([255,216,255,0]),{headers:{'Content-Type':'image/jpeg'}});});
+ let calls=0;const r=edge(async(url,init)=>{calls++;assert.equal(init.redirect,'manual');assert(!init.headers.Authorization);assert(!init.headers.Cookie);return new Response(new Uint8Array([255,216,255,0]),{headers:{'Content-Type':'image/jpeg'}});});
  const req=new Request('https://example.pages.dev/preview/cover?url='+encodeURIComponent('https://lain.bgm.tv/pic/cover/a.jpg'),{headers:{Cookie:'private'}});
  let response=await handle(req,r.env,r.ctx,r.deps);assert.equal(response.status,200);assert.equal(response.headers.get('Content-Type'),'image/jpeg');await Promise.all(r.pending);
  response=await handle(new Request(req.url,{method:'HEAD'}),r.env,r.ctx,r.deps);assert.equal(response.status,200);assert.equal(await response.text(),'');assert.equal(calls,1);
  for(const headers of [{'Content-Type':'text/html'},{'Content-Type':'image/jpeg','Content-Length':'9000000'},{'Content-Type':'image/png'}]){const bad=edge(async()=>new Response('not an image',{headers}));assert.equal((await handle(req,bad.env,bad.ctx,bad.deps)).status,502);}
+ const redirect=edge(async()=>new Response(null,{status:302,headers:{Location:'https://untrusted.test/a.jpg'}}));const rejected=await handle(req,redirect.env,redirect.ctx,redirect.deps);assert.equal(rejected.status,502);assert.equal(rejected.headers.get('X-Ciyuan-Cover-Error'),'upstream-302');
 });
 
 async function healthHarness(){let now=0,timer;const elements={'#player-status':{},'#retry-playback':{hidden:true}},media={currentTime:0,readyState:0,paused:true,seeking:false,ended:false,pause(){this.paused=true;}},context={navigator:{onLine:true},document:{hidden:false},Date:{now:()=>now},setInterval:fn=>(timer=fn,1),clearInterval(){},setTimeout,clearTimeout,mediaTicket:1,hls:null,video:media,watchState:null,originalQualityPlayback:()=>true,$:s=>elements[s],Hls:{ErrorTypes:{NETWORK_ERROR:'network',MEDIA_ERROR:'media'}}};
