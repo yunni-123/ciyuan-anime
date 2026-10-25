@@ -23,7 +23,7 @@ async function cover(request,ctx,dependencies){
   failure='cache';ctx.waitUntil(cache.put(key,result.clone()));return request.method==='HEAD'?new Response(null,result):result;
  }catch{return new Response(null,{status:502,headers:{'Cache-Control':'no-store','X-Ciyuan-Cover-Error':failure}});}
 }
-export function metadataPath(pathname){const prefix='/preview/';if(!pathname.startsWith(prefix))return null;const file=pathname.slice(prefix.length);if(file==='catalog.json'||file==='vod-catalog.json'||/^subject-details\/\d+\.json$/.test(file))return 'cloudflare-data/'+file;if(rootFiles.has(file)||/^details\/[a-z0-9]+_\d+\.json$/.test(file))return 'docs/'+file;return null;}
+export function metadataPath(pathname){const prefix='/preview/';if(!pathname.startsWith(prefix))return null;const file=pathname.slice(prefix.length);if(file==='catalog.json'||file==='vod-catalog.json'||file==='home-catalog.json'||/^subject-details\/\d+\.json$/.test(file))return 'cloudflare-data/'+file;if(rootFiles.has(file)||/^details\/[a-z0-9]+_\d+\.json$/.test(file))return 'docs/'+file;return null;}
 export async function handle(request,env,ctx,dependencies={}){
  const url=new URL(request.url);if(url.pathname==='/preview/cover')return cover(request,ctx,dependencies);
  const upstream=metadataPath(url.pathname);if(!upstream)return env.ASSETS.fetch(request);if(!['GET','HEAD'].includes(request.method))return new Response('Method not allowed',{status:405});
