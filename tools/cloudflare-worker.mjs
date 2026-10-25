@@ -1,3 +1,4 @@
+import arch from './architecture-core.cjs';
 const origin='https://raw.githubusercontent.com/yunni-123/ciyuan-anime/main/';
 const rootFiles=new Set(['annual-top50.json','announcements.json','franchises.json','novels.json','resource-coverage.json','resource-summary.json','text-only-catalog.json','update-status.json']);
 const coverHosts=new Set(['lain.bgm.tv','snzypic.vip','img.lzipic.com','www.mdzypic.com','hhmage.com','p.bfvp26.com','www.imgzy360.com','image.jinyingimage.com','img.bfzypic.com','img.liangzipic.com','img.ffzy888.com']);
@@ -23,18 +24,18 @@ async function cover(request,ctx,dependencies){
   failure='cache';ctx.waitUntil(cache.put(key,result.clone()));return request.method==='HEAD'?new Response(null,result):result;
  }catch{return new Response(null,{status:502,headers:{'Cache-Control':'no-store','X-Ciyuan-Cover-Error':failure}});}
 }
-export function metadataPath(pathname){const prefix='/preview/';if(!pathname.startsWith(prefix))return null;const file=pathname.slice(prefix.length);if(file==='catalog.json'||file==='vod-catalog.json'||file==='home-catalog.json'||/^subject-details\/\d+\.json$/.test(file))return 'cloudflare-data/'+file;if(rootFiles.has(file)||/^details\/[a-z0-9]+_\d+\.json$/.test(file))return 'docs/'+file;return null;}
+export function metadataPath(pathname){const prefix='/preview/';if(!pathname.startsWith(prefix))return null;const file=pathname.slice(prefix.length);if(file==='library-manifest.json')return 'cloudflare-data/'+file;if(/^releases\/[a-f0-9]{16}\/(index|home|cards-\d+|detail-[a-f0-9]{2}|meta-[a-z0-9-]+)\.[a-f0-9]{12}\.json$/.test(file))return 'cloudflare-data/'+file;if(file==='catalog.json'||file==='vod-catalog.json'||file==='home-catalog.json'||/^subject-details\/\d+\.json$/.test(file))return 'cloudflare-data/'+file;if(rootFiles.has(file)||/^details\/[a-z0-9]+_\d+\.json$/.test(file))return 'docs/'+file;return null;}
 export async function handle(request,env,ctx,dependencies={}){
- const url=new URL(request.url);if(url.pathname==='/preview/cover')return cover(request,ctx,dependencies);
+ const url=new URL(request.url);const legacy=url.pathname.match(/^\/preview\/(details\/([a-z0-9]+_\d+)|subject-details\/(\d+))\.json$/);if(legacy){try{const response=await handle(new Request(url.origin+'/preview/library-manifest.json'),env,ctx,dependencies),m=await response.json(),key=legacy[2]?'vod:'+legacy[2]:'subject:'+legacy[3],file=m.detailBuckets?.[arch.bucket(key)];if(!file)throw Error('missing');const pack=await(await handle(new Request(url.origin+'/preview/'+m.root+file),env,ctx,dependencies)).json(),item=pack.entries?.[key];if(!item||!arch.japanese(item))throw Error('missing');return new Response(JSON.stringify(item),{headers:{'Content-Type':'application/json','X-Ciyuan-Data':'versioned','X-Ciyuan-Version':m.version}});}catch{return new Response('{}',{status:404,headers:{'Content-Type':'application/json'}});}}if(url.pathname==='/preview/cover')return cover(request,ctx,dependencies);
  const upstream=metadataPath(url.pathname);if(!upstream)return env.ASSETS.fetch(request);if(!['GET','HEAD'].includes(request.method))return new Response('Method not allowed',{status:405});
  const cache=dependencies.cache||caches.default,fetcher=dependencies.fetch||fetch;
- const key=new Request(url.origin+url.pathname,{method:'GET'}),cached=await cache.match(key);if(cached)return request.method==='HEAD'?new Response(null,cached):cached;
+ const key=new Request(url.origin+url.pathname+'?data-policy=jp-v2',{method:'GET'}),cached=await cache.match(key);if(cached)return request.method==='HEAD'?new Response(null,cached):cached;
  try{
   const response=await fetcher(origin+upstream,{headers:{Accept:'application/json','User-Agent':'CiyuanCloudMetadata/1.0'},signal:AbortSignal.timeout(5000),cf:{cacheEverything:true,cacheTtl:300}});
   if(!response.ok)throw Error('Metadata HTTP '+response.status);
   if(Number(response.headers.get('Content-Length'))>12000000)throw Error('Metadata too large');let body=response.body;
   if(url.pathname.endsWith('/update-status.json')){const data=await response.json();data.runtime='cloudflare-pages';data.dataDelivery='cloudflare-same-origin';data.schedule={...data.schedule,mode:'github-actions-cloudflare-data'};body=JSON.stringify(data);}
-  const result=new Response(body,{headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'public, max-age=300, must-revalidate','X-Ciyuan-Data':'cloud','X-Content-Type-Options':'nosniff'}});
+  const result=new Response(body,{headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':url.pathname.includes('/releases/')?'public, max-age=31536000, immutable':'public, max-age=60, must-revalidate','X-Ciyuan-Data':'cloud','X-Content-Type-Options':'nosniff'}});
   ctx.waitUntil(cache.put(key,result.clone()));return request.method==='HEAD'?new Response(null,result):result;
  }catch{
   const fallback=await env.ASSETS.fetch(request);if(!fallback.ok)return fallback;

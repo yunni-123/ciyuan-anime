@@ -49,6 +49,7 @@
     document.querySelector('.hero-switch').innerHTML=batch.map((s,i)=>`<button data-hero="${i}" aria-label="推荐 ${i+1}：${safe(title(s))}"></button>`).join('');
     document.querySelectorAll('[data-hero]').forEach(b=>b.onclick=()=>show(Number(b.dataset.hero)));
     show(0);
+    if(window.CiyuanLibrary){const selectedBatch=batch;CiyuanLibrary.hydrate(batch.map(s=>String(s.id))).then(items=>{if(batch!==selectedBatch)return;const loaded=new Map(items.map(s=>[String(s.id),s]));batch=batch.map(s=>({...s,...loaded.get(String(s.id))}));show(heroIndex);}).catch(()=>{});}
   }
   function show(i){
     if(!batch.length){if(catalog.length)choose();return;}

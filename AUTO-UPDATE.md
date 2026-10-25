@@ -22,9 +22,9 @@ GitHub 计划任务可能排队延迟，不保证准点。年度榜必须全部 
 
 页面样式与播放器保持在 cloudflare-template/；数据更新不需要重新上传整个 Cloudflare 网站。只修改页面或边缘处理代码时才需通过已有 Wrangler 登录重新部署：
 
-    node tools/build-cloudflare-data.mjs docs cloudflare-data
-    node tools/build-cloudflare.mjs docs cloudflare-dist
-    wrangler pages deploy cloudflare-dist --project-name ciyuan-access-ba1021 --branch main
+    node tools/build-library-v2.mjs docs cloudflare-data
+    node tools/build-cloudflare-v2.mjs
+    wrangler pages deploy cloudflare-v2-dist --project-name ciyuan-access-ba1021 --branch main
 
 构建 Cloudflare 时设置 CIYUAN_AUTOMATION_ENABLED=true，表示仓库定时更新已配置。该变量没有凭据内容。Cloudflare 仍使用现有免费方案，没有启用付费套餐；Functions 有免费额度限制。静态页面和视频不会通过该数据函数。
 

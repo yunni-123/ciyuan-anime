@@ -14,7 +14,7 @@ function monitorPlayback(video,instance,ticket,url){
   clearPlayerHealth();
   const state=playerHealth={network:0,media:0,started:Date.now(),lastProgress:Date.now(),lastTime:video.currentTime,hasPlayed:false,lowered:false,retry:null,timer:null};
   const current=()=>playerHealth===state&&ticket===mediaTicket;
-  function fail(message){if(!current())return;globalThis.CiyuanExperienceUI?.recordFailure();if(tryPlaybackAlternative(message))return;clearPlayerHealth();if(hls){hls.destroy();hls=null;}video.pause();$('#player-status').textContent=message+'；自动恢复已停止，请重试或手动换源。';$('#retry-playback').hidden=false;}
+  function fail(message){if(!current())return;globalThis.CiyuanPlayback?.fail(message);globalThis.CiyuanExperienceUI?.recordFailure();if(tryPlaybackAlternative(message))return;clearPlayerHealth();if(hls){hls.destroy();hls=null;}video.pause();$('#player-status').textContent=message+'；自动恢复已停止，请重试或手动换源。';$('#retry-playback').hidden=false;}
   function retry(){if(!current()||state.retry)return;if(state.network>=2){fail('该线路持续不可用');return;}state.network++;state.lastProgress=Date.now();$('#player-status').textContent=`网络波动，正在重连（${state.network}/2）…`;state.retry=setTimeout(()=>{state.retry=null;if(!current()||!instance||hls!==instance)return;if(!instance.levels.length)instance.loadSource(url);else instance.startLoad();},state.network*1200);}
   state.handleError=data=>{
     if(!current())return;

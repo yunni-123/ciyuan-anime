@@ -1,3 +1,4 @@
+import architecture from './architecture-core.cjs';
 // Public metadata publisher for a standard, free GitHub-hosted runner.
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -21,7 +22,7 @@ await Promise.all(Object.entries(providers).map(async ([id,p]) => {
         const year=Number(String(x.vod_year).match(/\d{4}/)?.[0]);if(!year||year>new Date().getUTCFullYear()+1||!/^\d{1,12}$/.test(String(x.vod_id)))continue;
         const groups=String(x.vod_play_url||'').split('$$$').map((g,i)=>({name:clean(String(x.vod_play_from||'').split('$$$')[i]||'线路 '+(i+1)),episodes:g.split('#').map((e,n)=>{const k=e.indexOf('$');return{name:clean(k<0?'第'+(n+1)+'集':e.slice(0,k)),url:k<0?'':e.slice(k+1).trim()};}).filter(e=>/^https:\/\//i.test(e.url)&&/\.(m3u8|mp4)(\?|$)/i.test(e.url))})).filter(g=>g.episodes.length);
         const entry={id:`vod_${id}_${x.vod_id}`,vodId:String(x.vod_id),provider:id,providerName:p.name,type:2,name:clean(x.vod_name),name_cn:clean(x.vod_name),date:year+'-01-01',year:String(year),region:'jp',area:'日本',platform:clean(x.type_name),remarks:clean(x.vod_remarks),images:{common:/^https:\/\//.test(x.vod_pic||'')?x.vod_pic:''},summary:clean(x.vod_content),rating:{score:0},tags:[{name:clean(x.vod_class||'日本动画')}],sourceType:'third-party',updatedAt:x.vod_time,playable:groups.length>0,episodeCount:groups[0]?.episodes.length||0};
-        const old=merged.get(identity(entry));
+        if(!architecture.japanese(entry))continue;const old=merged.get(identity(entry));
         if(old) {
           const alternatives=[...(old.alternatives||[]),{provider:old.provider,vodId:old.vodId},...(entry.alternatives||[])];
           merged.set(identity(entry),{...old,...entry,classic:old.classic,classicRank:old.classicRank,franchise:old.franchise,alternatives:[...new Map(alternatives.filter(a=>a.provider!==id||a.vodId!==entry.vodId).map(a=>[a.provider+'_'+a.vodId,a])).values()]});

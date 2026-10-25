@@ -1,3 +1,5 @@
 cloudflare-dist/
 .wrangler/
 node_modules/
+
+cloudflare-v2-dist/
