@@ -9,3 +9,13 @@
 - Checkout tracks current main and generated commits rebase before push, avoiding stale queued workflow commits. Failures remain visible rather than force-pushing.
 
 Validation: ranking eligibility/search and snapshot integrity tests; mobile/desktop browser checks for categories, year switch, favorites, exact search, three themes, original anime navigation and TXT shelf.
+
+## Explicit rankings and Chinese reading candidates
+
+The default view is an ordered 1–50 ranking list with title, source publication date, rating and reading actions. Search retains the original annual rank. A persistent layout control switches to the original cover shelf.
+
+`reading-sources.json` records exact-title candidates from the public Japanese manga catalog at manhuagui.com and Chinese light novel catalog at bilinovel.com. Only titles already in the filtered annual lists are published. Short titles, multiple source matches and conflicting target IDs do not become confirmed links. Directory matching rejects foreign origins and chapters belonging to other book IDs.
+
+A matching catalog record is labeled `catalog-match`, not verified full text. Only a successful same-title detail page containing a same-book chapter/catalog link can acquire `directory-confirmed`; this still does not prove every chapter, translation quality, complete volumes, payment conditions or mainland reachability. HTTP errors, restrictions and limits retain the last evidence. Each weekly run has separate catalog and verification budgets; verification rotates through up to 120 candidates. A source returning 403/429 stops receiving requests for the remainder of the run; three connection failures do the same.
+
+The initial current network check collected 399 unambiguous Chinese reading candidates (149 manga and 250 novels). Detail verification encountered access restrictions/timeouts and established zero confirmed chapter directories. All 399 are shown explicitly as candidates, with their source title and snapshot evidence; none is promoted to guaranteed free full text.
