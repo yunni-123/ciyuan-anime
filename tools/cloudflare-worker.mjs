@@ -1,6 +1,6 @@
 import arch from './architecture-core.cjs';
 const origin='https://raw.githubusercontent.com/yunni-123/ciyuan-anime/main/';
-const rootFiles=new Set(['reading-sources.json','books-index.json','annual-top50.json','announcements.json','franchises.json','novels.json','resource-coverage.json','resource-summary.json','text-only-catalog.json','update-status.json']);
+const rootFiles=new Set(['free-reading-index.json','reading-sources.json','books-index.json','annual-top50.json','announcements.json','franchises.json','novels.json','resource-coverage.json','resource-summary.json','text-only-catalog.json','update-status.json']);
 const coverHosts=new Set(['lain.bgm.tv','snzypic.vip','img.lzipic.com','www.mdzypic.com','hhmage.com','p.bfvp26.com','www.imgzy360.com','image.jinyingimage.com','img.bfzypic.com','img.liangzipic.com','img.ffzy888.com']);
 export function coverURL(value){try{const u=new URL(value);return u.protocol==='https:'&&!u.username&&!u.password&&coverHosts.has(u.hostname)&&(!u.port||u.hostname==='www.imgzy360.com'&&u.port==='7788')&&/\.(jpe?g|png|webp)$/i.test(u.pathname)&&!u.search&&!u.hash?u:null;}catch{return null;}}
 async function cover(request,ctx,dependencies){
