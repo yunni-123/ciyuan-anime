@@ -1,0 +1,9 @@
+const c=require('./free-reading-core.cjs');
+const links=h=>[...h.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)].map(m=>({url:m[1].replace(/&amp;/g,'&'),title:c.clean(m[2])}));
+const variants=t=>[t,t.replace(/\([^)]*\)/g,'').trim(),...[...t.matchAll(/\(([^)]+)\)/g)].map(m=>m[1])].filter(Boolean);
+const same=(a,b)=>a.some(x=>variants(b).some(y=>c.norm(x)===c.norm(y)));
+const bookLink=(r,id)=>{try{const u=new URL(r.url,'https://www.wowenku.com');return ['www.wowenku.com','www.shencou.com'].includes(u.hostname)&&['http:','https:'].includes(u.protocol)&&!u.username&&!u.password&&u.pathname==='/books/read_'+id+'.html';}catch{return false;}};
+function catalog(h){const map=new Map();for(const r of links(h)){let u;try{u=new URL(r.url,'https://www.wowenku.com');}catch{continue;}if(u.origin!=='https://www.wowenku.com'||!/^\/books\/read_\d+\.html$/.test(u.pathname)||!r.title)continue;const id=u.pathname.match(/_(\d+)\.html/)[1];if(!map.has(id))map.set(id,{id,title:r.title,url:u.href});}return [...map.values()];}
+function directory(h,id,names){const title=c.clean(h.match(/<span\b[^>]*class=["']bigname["'][^>]*>([\s\S]*?)<\/span>/i)?.[1]).replace(/小说$/,'');if(!same(names,title)||!links(h).some(r=>r.url==='/books/read_'+id+'.html'))return null;const chapters=[...new Map(links(h).filter(r=>/^\d+\.html$/.test(r.url)&&!(/插图|插圖|封面|后记|後記|版权/.test(r.title))).map(r=>[r.url,r])).values()];return{title,chapters:chapters.slice(0,3),listedChapters:chapters.length};}
+function evidence(h,id,names){const title=c.clean(h.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1]);if(!names.some(n=>variants(n).some(v=>c.norm(title).startsWith(c.norm(v))))||!links(h).some(r=>bookLink(r,id)&&same(names,r.title)))return null;const body=h.match(/<!--go-->([\s\S]*?)<!--over-->/)?.[1];return body?c.contentEvidence('<div id="TextContent">'+body+'</div>'):null;}
+module.exports={variants,same,catalog,directory,evidence};

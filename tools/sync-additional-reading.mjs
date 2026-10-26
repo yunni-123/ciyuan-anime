@@ -8,6 +8,7 @@ const root=path.resolve(process.argv[2]||'docs'),read=async f=>JSON.parse(await 
 const state=await read('reading-sources.json'),index=await read('books-index.json'),refresh=process.argv.includes('--refresh'),now=new Date().toISOString();
 const deadline=Date.now()+360000,blocked=new Set(),failures=new Map(),errors=(state.additionalReading?.errors||[]).filter(e=>process.argv.includes('--manga')?e.provider!=='hlgmh':process.argv.includes('--novels')?e.provider!=='kxgxs':false),targets={novels:[],manga:[]};
 for(const y of index.years)for(const s of(await read('books/'+y.kind+'-'+y.year+'.json')).items)if(pub.eligibleTitle(s)&&!state.restricted?.[y.kind+':'+s.id])targets[y.kind].push(s);
+const recentFailures=new Set((Date.now()-Date.parse(state.additionalReading?.checkedAt||0)<86400000?state.additionalReading?.errors||[]:[]).filter(e=>e.key).map(e=>e.provider+':'+e.key));
 const names=s=>[s.name_cn,s.name].filter(Boolean),entries=r=>[r,...(r?.alternatives||[])].filter(Boolean);
 async function get(url,image=false){
  const u=new URL(url),allowed=u.origin==='https://kxgxs.com'?/^\/index\.php\/(?:library\/books\/5(?:\/\d+)?|book\/(?:info|catalog)\/\d+|book\/read\/\d+\/\d+)$/.test(u.pathname):u.origin==='https://hlgmh.com'?/^\/(?:search|comic\/hlg-[a-z0-9]+|chapter\/hlg-[a-z0-9]+)$/.test(u.pathname):image&&u.origin==='https://img.hlgmh.com'&&u.pathname.includes('/chapters/');
@@ -33,7 +34,7 @@ for(const kind of ['novels','manga']){
   const retryIds=new Set([279379,...(state.additionalReading?.errors||[]).filter(e=>e.provider==='hlgmh').map(e=>Number(e.key?.split(':')[1]))]);
   rows.push(...targets.manga.filter(s=>s.name_cn&&c.norm(s.name_cn).length>=3&&(!process.argv.includes('--retry-failed')||retryIds.has(s.id))).sort((a,b)=>(a.annualRank||50)-(b.annualRank||50)).map(s=>({s})));
  }
- const previous=state.additionalReading?.[kind]||{},retry=process.argv.includes('--retry-failed'),unique=[...new Map(rows.map(r=>[r.s.id,r])).values()],cursor=retry?0:Number(refresh?previous.refreshCursor:previous.cursor)||0,batch=Array.from({length:Math.min(refresh?48:kind==='novels'?32:16,unique.length)},(_,i)=>unique[(cursor+i)%unique.length]);
+ const previous=state.additionalReading?.[kind]||{},retry=process.argv.includes('--retry-failed'),newOnly=process.argv.includes('--new-only'),unique=[...new Map(rows.filter(r=>!newOnly||!recentFailures.has(provider+':'+kind+':'+r.s.id)&&!entries(state.items[kind+':'+r.s.id]).some(e=>e.provider===provider&&c.verifiedSample(e))).map(r=>[r.s.id,r])).values()],cursor=retry||newOnly?0:Number(refresh?previous.refreshCursor:previous.cursor)||0,batch=Array.from({length:Math.min(refresh?48:kind==='novels'?32:16,unique.length)},(_,i)=>unique[(cursor+i)%unique.length]);
  for(const row of batch){if(blocked.has(new URL(origin).host)||Date.now()>deadline)break;const{s,e:old,r}=row,key=kind+':'+s.id;checked++;
   try{
    let match,readerUrl,directoryUrl,evidence;
@@ -52,7 +53,7 @@ for(const kind of ['novels','manga']){
    state.items[key]=pub.mergeEntry(state.items[key],entry);verified++;console.log(JSON.stringify({kind,id:s.id,title:s.name_cn||s.name,state:entry.state,provider}));
   }catch(e){if(refresh)invalidate(key,provider,old?.readerUrl,e.message);errors.push({provider,key,error:e.message});}
  }
- reports[kind]={checkedAt:now,checked,verified,failed:checked-verified,pending:batch.length-checked,cursor:refresh||retry?(previous.cursor||0):(cursor+checked)%Math.max(1,unique.length),refreshCursor:refresh?(cursor+checked)%Math.max(1,unique.length):(previous.refreshCursor||0),candidates:refresh||retry?(previous.candidates||unique.length):unique.length};
+ reports[kind]={checkedAt:now,checked,verified,failed:checked-verified,pending:batch.length-checked,cursor:refresh||retry||newOnly?(previous.cursor||0):(cursor+checked)%Math.max(1,unique.length),refreshCursor:refresh?(cursor+checked)%Math.max(1,unique.length):(previous.refreshCursor||0),candidates:refresh||retry||newOnly?(previous.candidates||unique.length):unique.length};
  console.log(JSON.stringify({phase:'additional-'+kind,...reports[kind]}));
 }
 state.additionalReading={...(state.additionalReading||{}),...reports,checkedAt:now,mode:refresh?'refresh':'discovery',scope:'每周分批扩充既有日本年度榜同名作品；每日轮查已有正文或漫画图。抽检可读不代表全本完整、翻译质量或大陆网络可达。',errors};state.checkedAt=now;if(Object.values(reports).some(r=>r.verified))state.lastSuccessAt=new Date().toISOString();await fs.writeFile(path.join(root,'reading-sources.json'),JSON.stringify(state));
