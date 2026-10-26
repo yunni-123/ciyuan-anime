@@ -1,0 +1,12 @@
+// Public HTML only. Never evaluate scripts or infer reading access from HTTP 200.
+const c=require('./free-reading-core.cjs');
+const links=h=>[...h.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)].map(m=>({path:m[1].replace(/&amp;/g,'&'),title:c.clean(m[2])}));
+const h1=h=>c.clean(h.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1]);
+const exact=(a,b)=>a.some(n=>n&&c.norm(n)===c.norm(b));
+function novelList(h){return [...new Map([...h.matchAll(/<h[23]\b[^>]*>\s*<a\b[^>]*href=["'](\/index\.php\/book\/info\/\d+)["'][^>]*>([\s\S]*?)<\/a>/gi)].map(m=>[m[1],{path:m[1],title:c.clean(m[2])}])).values()];}
+function novelCatalog(h,id,names){const title=h1(h);if(!exact(names,title))return null;const rows=[...new Map(links(h).filter(r=>new RegExp('^/index\\.php/book/read/'+id+'/\\d+$').test(r.path)&&!(/插图|插圖|封面|版权信息|版權資訊/.test(r.title))).map(r=>[r.path,r])).values()];const first=rows.find(r=>/第.{0,8}章|第一败|第一敗/.test(r.title))||rows.find(r=>!/[序前言]/.test(r.title))||rows[0];return first?{title,path:first.path,chapterTitle:first.title,listedChapters:rows.length}:null;}
+function novelEvidence(h){const m=/<div\b[^>]*class=["']chapter-content["'][^>]*>/i.exec(h);if(!m)return null;return c.contentEvidence('<div id="TextContent">'+h.slice(m.index+m[0].length));}
+function mangaSearch(h,names){const matches=links(h).filter(r=>/^\/comic\/hlg-[a-z0-9]+$/.test(r.path)&&exact(names,r.title));return [...new Map(matches.map(r=>[r.path,r])).values()];}
+function mangaCatalog(h,names){const title=h1(h);if(!exact(names,title))return null;const rows=links(h).filter(r=>/^\/chapter\/hlg-[a-z0-9]+$/.test(r.path)),start=rows.find(r=>r.title==='开始阅读'||r.title==='从正篇开始阅读'),first=start||rows.find(r=>/^0*1\s|第0*1[话話卷]/.test(r.title));if(!first)return null;const label=rows.find(r=>r.path===first.path&&!/^(开始阅读|从正篇开始阅读)$/.test(r.title));return{title,path:first.path,chapterTitle:label?.title||'来源起始可读章节',listedChapters:new Set(rows.map(r=>r.path)).size};}
+function mangaPages(h,names,comicPath){if(!links(h).some(r=>r.path===comicPath&&exact(names,r.title)))return[];if(/登录后.{0,8}阅读|購買本章|购买本章|订阅本章|請先登入/.test(c.clean(h)))return[];return [...new Set([...h.matchAll(/<img\b[^>]*class=["']reader-page-image["'][^>]*src=["']([^"']+)["'][^>]*>/gi)].map(m=>m[1].replace(/&amp;/g,'&')).filter(s=>{try{const u=new URL(s);return u.origin==='https://img.hlgmh.com'&&u.pathname.includes('/chapters/')&&!u.username&&!u.password&&!u.search;}catch{return false;}}))];}
+module.exports={novelList,novelCatalog,novelEvidence,mangaSearch,mangaCatalog,mangaPages};

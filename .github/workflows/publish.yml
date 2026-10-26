@@ -96,8 +96,10 @@ jobs:
         run: |
           if [ "${{ github.event.schedule }}" = '47 0 * * 1' ] || [ "${{ github.event_name }}" = 'workflow_dispatch' ]; then
             node tools/sync-free-novels.mjs docs
+            node tools/sync-additional-reading.mjs docs
           else
             node tools/sync-free-novels.mjs docs --refresh
+            node tools/sync-additional-reading.mjs docs --refresh
           fi
           node tools/sync-free-manga.mjs docs
       - name: Reconcile series and yearly coverage
