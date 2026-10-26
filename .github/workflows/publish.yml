@@ -96,11 +96,19 @@ jobs:
         run: |
           if [ "${{ github.event.schedule }}" = '47 0 * * 1' ] || [ "${{ github.event_name }}" = 'workflow_dispatch' ]; then
             node tools/sync-narou-reading.mjs docs
+            node tools/sync-kadocomi-reading.mjs docs
+            node tools/sync-comicdays-reading.mjs docs
+            node tools/sync-jumpplus-reading.mjs docs
+            node tools/sync-kakuyomu-reading.mjs docs
             node tools/sync-free-novels.mjs docs
             node tools/sync-additional-reading.mjs docs
             node tools/sync-wow-reading.mjs docs
           else
             node tools/sync-narou-reading.mjs docs --refresh
+            node tools/sync-kadocomi-reading.mjs docs --refresh
+            node tools/sync-comicdays-reading.mjs docs --refresh
+            node tools/sync-jumpplus-reading.mjs docs --refresh
+            node tools/sync-kakuyomu-reading.mjs docs --refresh
             node tools/sync-free-novels.mjs docs --refresh
             node tools/sync-additional-reading.mjs docs --refresh
             node tools/sync-wow-reading.mjs docs --refresh
