@@ -100,6 +100,8 @@ jobs:
             node tools/sync-comicdays-reading.mjs docs
             node tools/sync-jumpplus-reading.mjs docs
             node tools/sync-kakuyomu-reading.mjs docs
+            node tools/sync-sundaywebry-reading.mjs docs
+            node tools/sync-ganganonline-reading.mjs docs
             node tools/sync-free-novels.mjs docs
             node tools/sync-additional-reading.mjs docs
             node tools/sync-wow-reading.mjs docs
@@ -109,6 +111,8 @@ jobs:
             node tools/sync-comicdays-reading.mjs docs --refresh
             node tools/sync-jumpplus-reading.mjs docs --refresh
             node tools/sync-kakuyomu-reading.mjs docs --refresh
+            node tools/sync-sundaywebry-reading.mjs docs --refresh
+            node tools/sync-ganganonline-reading.mjs docs --refresh
             node tools/sync-free-novels.mjs docs --refresh
             node tools/sync-additional-reading.mjs docs --refresh
             node tools/sync-wow-reading.mjs docs --refresh
