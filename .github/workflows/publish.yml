@@ -117,6 +117,7 @@ jobs:
             node tools/sync-additional-reading.mjs docs --refresh
             node tools/sync-wow-reading.mjs docs --refresh
           fi
+          node tools/sync-bilimanga-reading.mjs docs
           node tools/sync-free-manga.mjs docs
       - name: Reconcile series and yearly coverage
         id: coverage
