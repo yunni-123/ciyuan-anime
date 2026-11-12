@@ -120,6 +120,8 @@ jobs:
           node tools/sync-bilimanga-reading.mjs docs
           node tools/sync-gardo-reading.mjs docs
           node tools/sync-tonari-reading.mjs docs
+          node tools/build-full-manga-candidates.mjs docs
+          node tools/audit-full-manga.mjs docs
           node tools/sync-free-manga.mjs docs
       - name: Reconcile series and yearly coverage
         id: coverage
